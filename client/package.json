@@ -6,9 +6,9 @@
     "author": "",
     "license": "ISC",
     "scripts": {
-        "sass:header": "sass ./styles/scss/components/header.scss ./styles/header.css --watch --style=compressed --no-source-map",
-        "sass:footer": "sass ./styles/scss/components/footer.scss ./styles/footer.css --watch --style=compressed --no-source-map",
-        "sass:main": "sass ./styles/scss/main.scss ./styles/main.css --watch --style=compressed --no-source-map",
+        "sass:header": "sass ./styles/scss/components/header.scss ./styles/css/header.css --watch --style=compressed --no-source-map",
+        "sass:footer": "sass ./styles/scss/components/footer.scss ./styles/css/footer.css --watch --style=compressed --no-source-map",
+        "sass:main": "sass ./styles/scss/main.scss ./styles/css/main.css --watch --style=compressed --no-source-map",
         "sass": "npm-run-all --parallel sass:header sass:footer sass:main"
     },
     "devDependencies": {

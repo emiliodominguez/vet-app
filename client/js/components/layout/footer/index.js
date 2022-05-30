@@ -23,7 +23,7 @@ class Footer extends HTMLElement {
      * Sets the style tag containing the component styles
      */
     setStyleTag() {
-        const linkElem = getStyleTag("/styles/footer.css");
+        const linkElem = getStyleTag("/styles/css/footer.css");
         this.shadowRoot.append(linkElem);
     }
 }

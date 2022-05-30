@@ -25,7 +25,7 @@ class Header extends HTMLElement {
      * Sets the style tag containing the component styles
      */
     setStyleTag() {
-        const linkElem = getStyleTag("/styles/header.css");
+        const linkElem = getStyleTag("/styles/css/header.css");
         this.shadowRoot.append(linkElem);
     }
 
