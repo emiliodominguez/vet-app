@@ -1,0 +1,22 @@
+:root {
+    // Colors
+    --primary-color: #222;
+    --secondary-color: #fff;
+    --tertiary-color: #ccc;
+
+    .dark-theme {
+        --primary-color: #fff;
+        --secondary-color: #222;
+        --tertiary-color: #888;
+    }
+
+    // Fonts
+    --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --secondary-font: "";
+
+    // Sizes
+    --header-height: 75px;
+    --footer-height: 150px;
+    --main-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+    --common-padding: 25px;
+}

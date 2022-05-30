@@ -1,0 +1,32 @@
+@import "../reset";
+
+.header {
+    height: var(--header-height);
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    padding: 15px var(--common-padding);
+    justify-content: space-between;
+
+    &,
+    ul {
+        display: flex;
+        align-items: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .badge {
+        text-transform: uppercase;
+
+        h1 {
+            font-size: 25px;
+        }
+    }
+
+    ul {
+        list-style: none;
+        gap: 15px;
+    }
+}

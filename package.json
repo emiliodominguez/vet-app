@@ -1,0 +1,18 @@
+{
+    "name": "client",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "sass:header": "sass ./styles/scss/components/header.scss ./styles/header.css --watch --style=compressed --no-source-map",
+        "sass:footer": "sass ./styles/scss/components/footer.scss ./styles/footer.css --watch --style=compressed --no-source-map",
+        "sass:main": "sass ./styles/scss/main.scss ./styles/main.css --watch --style=compressed --no-source-map",
+        "sass": "npm-run-all --parallel sass:header sass:footer sass:main"
+    },
+    "devDependencies": {
+        "npm-run-all": "^4.1.5",
+        "sass": "^1.52.1"
+    }
+}
