@@ -16,7 +16,7 @@ class Footer extends HTMLElement {
      */
     async setTemplate() {
         const template = await getHtmlTemplate("./template.html", import.meta.url);
-        this.shadowRoot.innerHTML += template;
+        this.shadowRoot.innerHTML += template.replace("{{year}}", new Date().getFullYear());
     }
 
     /**

@@ -1,0 +1,27 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    .home-text {
+        max-width: 750px;
+
+        h2 {
+            font-size: clamp(20px, 5vw, 50px);
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.75;
+        }
+    }
+
+    img {
+        min-width: clamp(275px, 50vw, 500px);
+        height: clamp(275px, 50vw, 500px);
+        border-radius: 50%;
+        box-shadow: 75px 25px 0 -50px rgba(var(--highlight-color), 0.75), -75px -50px 0 -50px rgba(var(--highlight-color), 0.75);
+        object-fit: cover;
+    }
+}

@@ -1,9 +1,7 @@
-@import "../reset";
+@use "../reset";
 
 .header {
     height: var(--header-height);
-    background-color: var(--tertiary-color);
-    color: var(--primary-color);
     padding: 15px var(--common-padding);
     justify-content: space-between;
 
@@ -15,18 +13,42 @@
 
     a {
         text-decoration: none;
+        color: var(--primary-color);
+        transition: color ease 250ms;
+
+        &:hover {
+            color: rgb(var(--highlight-color));
+        }
     }
 
     .badge {
         text-transform: uppercase;
 
         h1 {
-            font-size: 25px;
+            font-size: 18px;
         }
     }
 
     ul {
         list-style: none;
         gap: 15px;
+
+        a {
+            position: relative;
+
+            &.active {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: calc(100% + 5px);
+                    left: 50%;
+                    width: 5px;
+                    height: 5px;
+                    background-color: rgb(var(--highlight-color));
+                    border-radius: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
     }
 }

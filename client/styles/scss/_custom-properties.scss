@@ -1,22 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Esteban&display=swap");
+
 :root {
     // Colors
-    --primary-color: #222;
-    --secondary-color: #fff;
-    --tertiary-color: #ccc;
-
-    .dark-theme {
-        --primary-color: #fff;
-        --secondary-color: #222;
-        --tertiary-color: #888;
-    }
+    --primary-color: 34, 34, 34;
+    --secondary-color: 255, 255, 255;
+    --highlight-color: 205, 92, 92;
 
     // Fonts
-    --primary-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    --secondary-font: "";
+    --primary-font: "Montserrat", sans-serif;
+    --secondary-font: "Esteban", serif;
 
     // Sizes
     --header-height: 75px;
-    --footer-height: 150px;
+    --footer-height: 75px;
     --main-height: calc(100vh - (var(--header-height) + var(--footer-height)));
     --common-padding: 25px;
 }

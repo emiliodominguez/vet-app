@@ -1,8 +1,18 @@
 body {
     font-family: var(--primary-font);
+    box-shadow: inset 0 0 150px rgba(var(--highlight-color), 0.15);
 }
 
 main {
     height: var(--main-height);
     padding: var(--common-padding);
 }
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//     font-family: var(--secondary-font);
+// }

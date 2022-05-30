@@ -41,6 +41,11 @@ class Header extends HTMLElement {
             const a = document.createElement("a");
             a.textContent = route.label;
             a.href = route.url;
+
+            if (route.url === window.location.pathname) {
+                a.classList.add("active");
+            }
+
             li.append(a);
             ul.append(li);
         }

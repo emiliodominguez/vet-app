@@ -9,9 +9,11 @@
         "sass:header": "sass ./styles/scss/components/header.scss ./styles/css/header.css --watch --style=compressed --no-source-map",
         "sass:footer": "sass ./styles/scss/components/footer.scss ./styles/css/footer.css --watch --style=compressed --no-source-map",
         "sass:main": "sass ./styles/scss/main.scss ./styles/css/main.css --watch --style=compressed --no-source-map",
-        "sass": "npm-run-all --parallel sass:header sass:footer sass:main"
+        "serve": "live-server",
+        "dev": "npm-run-all --parallel sass:header sass:footer sass:main serve"
     },
     "devDependencies": {
+        "live-server": "^1.2.2",
         "npm-run-all": "^4.1.5",
         "sass": "^1.52.1"
     }
