@@ -1,4 +1,5 @@
 @use "../reset";
+@use "../form-elements";
 
 .header {
     height: var(--header-height);
@@ -23,6 +24,7 @@
 
     .badge {
         text-transform: uppercase;
+        color: rgba(var(--highlight-color), 0.75);
 
         h1 {
             font-size: 18px;

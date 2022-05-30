@@ -6,13 +6,14 @@ body {
 main {
     height: var(--main-height);
     padding: var(--common-padding);
+    overflow-y: auto;
 }
 
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6 {
-//     font-family: var(--secondary-font);
-// }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--secondary-font);
+}

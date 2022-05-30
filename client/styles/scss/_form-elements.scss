@@ -1,0 +1,19 @@
+@use "./variables";
+
+.btn {
+    background-color: rgba(var(--highlight-color), 0.85);
+    color: rgb(var(--secondary-color));
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: variables.font-weight(semi-bold);
+    text-transform: uppercase;
+    transition: background-color ease 250ms;
+
+    &:focus,
+    &:hover {
+        background-color: rgb(var(--highlight-color));
+    }
+}
