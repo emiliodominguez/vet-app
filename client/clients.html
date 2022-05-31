@@ -11,19 +11,40 @@
         <app-header></app-header>
 
         <main class="clients">
-            <button class="btn" id="add-client-btn">+ Add</button>
+            <h2>Clients</h2>
 
             <table id="clients-table">
-                <thead></thead>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                        <th>Birth date</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+
                 <tbody></tbody>
             </table>
+
+            <button class="btn" id="add-client-btn">+ Add</button>
         </main>
 
-        <div class="modal">
-            <div class="modal-content">
-                <form method="POST" id="add-client-form"></form>
-            </div>
-        </div>
+        <app-modal id="add-client-modal">
+            <h3 slot="modal-title" class="add-client-modal-title">Add client</h3>
+
+            <form method="POST" id="add-client-form" slot="modal-content">
+                <div><label for="name">Name</label> <input type="text" name="name" placeholder="Client's name" required /></div>
+                <div><label for="email">Email</label> <input type="email" name="email" placeholder="Client's email" required /></div>
+                <div><label for="age">Age</label> <input type="number" min="0" max="150" name="age" placeholder="Client's age" required /></div>
+                <div><label for="birthDate">Birth date</label> <input type="date" name="birthDate" required /></div>
+                <div><label for="phone">Phone</label> <input type="tel" name="phone" placeholder="Client's phone" /></div>
+                <div><label for="address">Address</label> <input type="text" name="address" placeholder="Client's address" /></div>
+                <input type="submit" value="Add" class="btn positive" />
+            </form>
+        </app-modal>
 
         <app-footer></app-footer>
 

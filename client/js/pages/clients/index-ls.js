@@ -6,7 +6,8 @@ import * as client from "./base-clients.js";
  */
 function renderClientsTable() {
     const existentClients = LocalStorageService.get(client.lsKey);
-    client.renderTableBody(existentClients);
+    const clients = existentClients ? JSON.parse(existentClients) : [];
+    client.renderTableBody(clients);
 }
 
 /**
@@ -15,7 +16,8 @@ function renderClientsTable() {
  */
 function addClient(e) {
     e.preventDefault();
-    const existentClients = LocalStorageService.get(client.lsKey);
+    const localStorageData = LocalStorageService.get(client.lsKey);
+    const existentClients = localStorageData ? JSON.parse(localStorageData) : [];
     const clients = client.getParsedFormData(e, existentClients);
     LocalStorageService.save(client.lsKey, clients);
     renderClientsTable();

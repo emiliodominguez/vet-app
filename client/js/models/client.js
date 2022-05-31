@@ -5,7 +5,7 @@ export default class Client {
      * @param {string} email The client's email
      * @param {number} age The client's age
      * @param {string} birthDate The client's birth date
-     * @param {string | number} phone The client's phone
+     * @param {string} phone The client's phone
      * @param {string} address The client's address
      */
     constructor(id, name, email, age, birthDate, phone, address) {

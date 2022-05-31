@@ -19,12 +19,10 @@ export function toggleAddClientModal(open) {
  * @param existentClients An array of existent clients
  */
 export function renderTableBody(existentClients) {
-    const clients = existentClients ? JSON.parse(existentClients) : [];
-
     clientsTableBody.innerHTML = "";
 
-    if (clients.length) {
-        for (const client of clients) {
+    if (existentClients.length) {
+        for (const client of existentClients) {
             const tr = document.createElement("tr");
 
             for (const [_, value] of Object.entries(client)) {
@@ -48,13 +46,12 @@ export function renderTableBody(existentClients) {
  * @param existentClients An array of existent clients
  */
 export function getParsedFormData(e, existentClients) {
-    const clients = existentClients ? JSON.parse(existentClients) : [];
     const formData = new FormData(e.target);
     const clientData = ["name", "email", "age", "birthDate", "phone", "address"].map((x) => formData.get(x));
-    const client = new Client(clients.length, ...clientData);
+    const client = new Client(existentClients.length, ...clientData);
     addClientForm.reset();
     toggleAddClientModal(false);
-    return [...clients, client];
+    return [...existentClients, client];
 }
 
 addClientBtn.addEventListener("click", () => toggleAddClientModal(true));
