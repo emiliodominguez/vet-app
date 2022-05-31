@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date
 from sqlalchemy.orm import relationship
 
 from connection import Base
@@ -9,7 +9,11 @@ class Client(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    name = Column(String)
+    age = Column(Integer)
+    birth_date = Column(Date)
+    phone = Column(String)
+    address = Column(String)
     is_active = Column(Boolean, default=True)
 
     pets = relationship("Pet", back_populates="owner")
@@ -19,8 +23,12 @@ class Pet(Base):
     __tablename__ = "pets"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
+    name = Column(String)
+    birth_date = Column(Date)
+    type = Column(String)
+    breed = Column(String)
+    affection = Column(String)
+    admission_date = Column(Date)
     owner_id = Column(Integer, ForeignKey("clients.id"))
 
     owner = relationship("Client", back_populates="pets")

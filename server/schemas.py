@@ -1,11 +1,15 @@
-from typing import Union
+from datetime import date
 
 from pydantic import BaseModel
 
 
 class PetBase(BaseModel):
-    title: str
-    description: Union[str, None] = None
+    name: str
+    birth_date: date
+    type: str
+    breed: str
+    affection: str
+    admission_date: date
 
 
 class PetCreate(PetBase):
@@ -22,6 +26,11 @@ class Pet(PetBase):
 
 class ClientBase(BaseModel):
     email: str
+    name: str
+    age: int
+    birth_date: date
+    phone: str
+    address: str
 
 
 class ClientCreate(ClientBase):
