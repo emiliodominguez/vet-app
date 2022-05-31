@@ -38,7 +38,6 @@ function handleFormSubmit(e) {
     switch (e.target.dataset.mode) {
         case "EDIT":
             const id = baseClient.addEditClientModal.querySelector("[name='id']").value;
-            console.log(id);
             const updatedClient = baseClient.getClientDataFromForm(e, id);
             clientsLsService.editClient(id, updatedClient);
             break;

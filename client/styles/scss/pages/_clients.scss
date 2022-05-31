@@ -21,12 +21,16 @@
     margin-bottom: 25px;
 }
 
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
 #clients-table {
     width: 100%;
     text-align: left;
     white-space: nowrap;
     border-collapse: collapse;
-    table-layout: fixed;
     margin-top: 50px;
 
     thead {
