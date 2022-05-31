@@ -15,7 +15,6 @@ function renderClientsTable() {
  */
 function addClient(e) {
     e.preventDefault();
-
     const existentClients = LocalStorageService.get(client.lsKey);
     const clients = client.getParsedFormData(e, existentClients);
     LocalStorageService.save(client.lsKey, clients);

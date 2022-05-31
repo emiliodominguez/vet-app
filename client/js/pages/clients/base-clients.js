@@ -48,8 +48,6 @@ export function renderTableBody(existentClients) {
  * @param existentClients An array of existent clients
  */
 export function getParsedFormData(e, existentClients) {
-    e.preventDefault();
-
     const clients = existentClients ? JSON.parse(existentClients) : [];
     const formData = new FormData(e.target);
     const clientData = ["name", "email", "age", "birthDate", "phone", "address"].map((x) => formData.get(x));
