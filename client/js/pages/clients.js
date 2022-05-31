@@ -16,7 +16,6 @@ async function renderTable() {
 function saveClient(e) {
     e.preventDefault();
     const client = baseClient.getClientDataFromForm(e);
-    console.log(client);
     clientsService.saveClient(client);
     renderTable();
 }
