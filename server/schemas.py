@@ -34,7 +34,7 @@ class ClientBase(BaseModel):
 
 
 class ClientCreate(ClientBase):
-    password: str
+    pass
 
 
 class Client(ClientBase):

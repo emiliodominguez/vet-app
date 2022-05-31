@@ -16,8 +16,7 @@ def get_clients(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: schemas.ClientCreate):
-    fake_hashed_password = user.password + "notreallyhashed"
-    db_user = models.Client(email=user.email, hashed_password=fake_hashed_password)
+    db_user = models.Client(email=user.email, name=user.name, age=user.age, birth_date=user.birth_date, phone=user.phone, address=user.address)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
