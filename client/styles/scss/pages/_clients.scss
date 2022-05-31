@@ -103,6 +103,7 @@
 
         &[type="submit"] {
             grid-column: 1 / -1;
+            order: 1;
             max-width: 150px;
             margin: 25px auto 0;
         }

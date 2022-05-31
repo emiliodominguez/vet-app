@@ -4,9 +4,9 @@ import * as baseClient from "./base-clients.js";
 /**
  * Renders the clients table
  */
-function renderClientsTable() {
-    const existentClients = clientsService.getClients() ?? [];
-    baseClient.renderTableBody(existentClients);
+async function renderTable() {
+    const clients = await clientsService.getClients();
+    baseClient.renderTableBody(clients ?? []);
 }
 
 /**
@@ -15,11 +15,11 @@ function renderClientsTable() {
  */
 function saveClient(e) {
     e.preventDefault();
-    const existentClients = clientsService.getClients() ?? [];
-    const client = baseClient.getNewClient(e, existentClients.length);
+    const client = baseClient.getClientDataFromForm(e);
+    console.log(client);
     clientsService.saveClient(client);
-    renderClientsTable();
+    renderTable();
 }
 
 baseClient.addEditClientForm.addEventListener("submit", saveClient);
-renderClientsTable();
+renderTable();

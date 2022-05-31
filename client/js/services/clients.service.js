@@ -5,19 +5,19 @@ class ClientsService {
 
     /**
      * Gets the clients
-     * @returns {Client[]} The array of clients
+     * @returns {Promise<Client[]>} The array of clients
      */
     async getClients() {
-        await httpService.get(`${this.#apiUrl}/clients`);
+        return await httpService.get(`${this.#apiUrl}/clients`);
     }
 
     /**
      * Gets a client by its ID
      * @param {string | number} id The ID
-     * @returns {Client} The client
+     * @returns {Promise<Client>} The client
      */
     async getClientById(id) {
-        await httpService.get(`${this.#apiUrl}/clients/${id}`);
+        return await httpService.get(`${this.#apiUrl}/clients/${id}`);
     }
 
     /**
@@ -25,7 +25,7 @@ class ClientsService {
      * @param {Client} client The client
      */
     async saveClient(client) {
-        await httpService.post(`${this.#apiUrl}/clients`, client);
+        return await httpService.post(`${this.#apiUrl}/clients`, client);
     }
 
     /**
@@ -34,7 +34,7 @@ class ClientsService {
      * @param {Client} client The client
      */
     async editClient(id, client) {
-        await httpService.put(`${this.#apiUrl}/clients/${id}`, client);
+        return await httpService.put(`${this.#apiUrl}/clients/${id}`, client);
     }
 
     /**
@@ -42,7 +42,7 @@ class ClientsService {
      * @param {string | number} id The ID
      */
     async deleteClient(id) {
-        await httpService.delete(`${this.#apiUrl}/clients/${id}`);
+        return await httpService.delete(`${this.#apiUrl}/clients/${id}`);
     }
 }
 

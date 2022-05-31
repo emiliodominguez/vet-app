@@ -1,10 +1,46 @@
-import Client from "../models/client.js";
-
-export const clientsTableBody = document.querySelector("#clients-table tbody");
-export const addEditClientModal = document.querySelector("#add-edit-client-modal");
 export const addEditClientForm = document.querySelector("#add-edit-client-form");
-export const addClientBtn = document.querySelector("#add-client-btn");
-const clientProps = ["name", "email", "age", "birthDate", "phone", "address"];
+export const addEditClientModal = document.querySelector("#add-edit-client-modal");
+const clientsTable = document.querySelector("#clients-table");
+const clientsTableHead = clientsTable.querySelector("thead");
+const clientsTableBody = clientsTable.querySelector("tbody");
+const addClientBtn = document.querySelector("#add-client-btn");
+const clientFields = Object.freeze([
+    { label: "Name", key: "name", inputType: "string", placeholder: "Client's name", required: true },
+    { label: "Email", key: "email", inputType: "email", placeholder: "Client's email", required: true },
+    { label: "Age", key: "age", inputType: "number", placeholder: "Client's age", required: true },
+    { label: "Birth date", key: "birth_date", inputType: "date", required: true },
+    { label: "Phone", key: "phone", inputType: "tel", placeholder: "Client's phone", required: true },
+    { label: "Address", key: "address", inputType: "string", placeholder: "Client's address", required: true },
+]);
+
+function renderFormFields() {
+    for (const field of clientFields) {
+        const div = document.createElement("div");
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+
+        label.for = field.key;
+        label.textContent = field.label;
+        input.name = field.key;
+        input.placeholder = field.placeholder;
+        input.type = field.inputType;
+        input.required = field.required;
+        div.append(label, input);
+        addEditClientForm.append(div);
+    }
+}
+
+function renderTableHead() {
+    const tr = document.createElement("tr");
+
+    for (const field of clientFields) {
+        const th = document.createElement("th");
+        th.textContent = field.label;
+        tr.append(th);
+    }
+
+    clientsTableHead.append(tr);
+}
 
 /**
  *
@@ -16,13 +52,17 @@ export function renderTableBody(existentClients, onEdit, onDelete) {
     clientsTableBody.innerHTML = "";
 
     if (existentClients.length) {
+        const tableFieldsKey = clientFields.map((x) => x.key);
+
         for (const client of existentClients) {
             const tr = document.createElement("tr");
 
-            for (const [_, value] of Object.entries(client)) {
-                const td = document.createElement("td");
-                td.textContent = value;
-                tr.append(td);
+            for (const [key, value] of Object.entries(client)) {
+                if (tableFieldsKey.includes(key)) {
+                    const td = document.createElement("td");
+                    td.textContent = value;
+                    tr.append(td);
+                }
             }
 
             // Actions
@@ -61,9 +101,9 @@ export function toggleAddClientModal(open, mode, clientToUpdate = null) {
     addEditClientForm.dataset.mode = mode;
 
     if (clientToUpdate) {
-        ["id", ...clientProps].forEach((prop) => {
-            const updatedProp = addEditClientForm.querySelector(`[name='${prop}']`);
-            updatedProp.value = clientToUpdate[prop];
+        clientFields.forEach((prop) => {
+            const updatedProp = addEditClientForm.querySelector(`[name='${prop.key}']`);
+            if (updatedProp) updatedProp.value = clientToUpdate[prop.key];
         });
     }
 }
@@ -76,10 +116,13 @@ export function toggleAddClientModal(open, mode, clientToUpdate = null) {
  */
 export function getClientDataFromForm(e, id) {
     const formData = new FormData(e.target);
-    const clientData = clientProps.map((x) => formData.get(x));
+    const clientData = clientFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
     addEditClientForm.reset();
     toggleAddClientModal(false);
-    return new Client(id, ...clientData);
+    return id ? { id, ...clientData } : clientData;
 }
 
+// Common function calls
 addClientBtn.addEventListener("click", () => toggleAddClientModal(true, "ADD"));
+renderTableHead();
+renderFormFields();
