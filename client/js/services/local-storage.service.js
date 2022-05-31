@@ -1,20 +1,13 @@
 class LocalStorageService {
     get(key) {
-        const fetchedItem = localStorage.getItem(key);
-        return fetchedItem ?? null;
+        return localStorage.getItem(key);
     }
 
-    save(key, payload) {
+    set(key, payload) {
         localStorage.setItem(key, JSON.stringify(payload));
     }
 
-    edit(key, payload) {
-        const existentItem = this.get(key);
-        if (existentItem) this.delete(key);
-        localStorage.setItem(key, JSON.stringify(payload));
-    }
-
-    delete(key) {
+    remove(key) {
         localStorage.removeItem(key);
     }
 }

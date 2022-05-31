@@ -23,6 +23,7 @@
                         <th>Birth date</th>
                         <th>Phone</th>
                         <th>Address</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 
@@ -32,23 +33,24 @@
             <button class="btn" id="add-client-btn">+ Add</button>
         </main>
 
-        <app-modal id="add-client-modal">
-            <h3 slot="modal-title" class="add-client-modal-title">Add client</h3>
+        <app-modal id="add-edit-client-modal">
+            <h3 slot="modal-title" class="client-modal-title">Add/Edit client</h3>
 
-            <form method="POST" id="add-client-form" slot="modal-content">
+            <form method="POST" id="add-edit-client-form" slot="modal-content">
+                <input type="hidden" name="id" />
                 <div><label for="name">Name</label> <input type="text" name="name" placeholder="Client's name" required /></div>
                 <div><label for="email">Email</label> <input type="email" name="email" placeholder="Client's email" required /></div>
                 <div><label for="age">Age</label> <input type="number" min="0" max="150" name="age" placeholder="Client's age" required /></div>
                 <div><label for="birthDate">Birth date</label> <input type="date" name="birthDate" required /></div>
                 <div><label for="phone">Phone</label> <input type="tel" name="phone" placeholder="Client's phone" /></div>
                 <div><label for="address">Address</label> <input type="text" name="address" placeholder="Client's address" /></div>
-                <input type="submit" value="Add" class="btn positive" />
+                <input type="submit" value="Accept" class="btn positive" />
             </form>
         </app-modal>
 
         <app-footer></app-footer>
 
         <script src="../js/main.js" type="module"></script>
-        <script src="../js/pages/clients/index-ls.js" type="module"></script>
+        <script src="../js/pages/clients-ls.js" type="module"></script>
     </body>
 </html>
