@@ -10,13 +10,24 @@
     <body>
         <app-header></app-header>
 
-        <main>
-            <h2>This is the clients page</h2>
+        <main class="clients">
+            <button class="btn" id="add-client-btn">+ Add</button>
+
+            <table id="clients-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
         </main>
+
+        <div class="modal">
+            <div class="modal-content">
+                <form method="POST" id="add-client-form"></form>
+            </div>
+        </div>
 
         <app-footer></app-footer>
 
         <script src="../js/main.js" type="module"></script>
-        <script src="../js/pages/clients.js" type="module"></script>
+        <script src="../js/pages/client/index.js" type="module"></script>
     </body>
 </html>

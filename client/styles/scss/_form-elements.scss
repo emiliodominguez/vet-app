@@ -1,19 +1,53 @@
 @use "./variables";
 
+input,
 .btn {
-    background-color: rgba(var(--highlight-color), 0.85);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+input {
+    font-family: var(--primary-font);
+    border: 1px solid #999;
+}
+
+.btn {
+    display: inline-block;
+    background-color: rgb(var(--highlight-color));
     color: rgb(var(--secondary-color));
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 10px;
     border: none;
     font-size: 14px;
-    font-weight: variables.font-weight(semi-bold);
+    font-weight: variables.font-weight(bold);
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    transition: background-color ease 250ms;
+    transition: background-color ease 250ms, transform ease 250ms;
+    cursor: pointer;
 
     &:focus,
     &:hover {
-        background-color: rgb(var(--highlight-color));
+        transform: scale(1.05);
+    }
+
+    &.sm {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    &.danger,
+    &.positive {
+        color: rgb(var(--primary-color));
+    }
+
+    &.danger {
+        background-color: #ca0202;
+    }
+
+    &.warning {
+        background-color: #f5dc00;
+    }
+
+    &.positive {
+        background-color: #007f0d;
     }
 }

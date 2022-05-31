@@ -49,8 +49,8 @@
         }
 
         &::after {
-            background-color: rgba(var(--highlight-color), 0.5);
-            animation-delay: 100ms;
+            background-color: rgba(var(--highlight-color), 0.75);
+            animation-delay: 150ms;
         }
 
         img {

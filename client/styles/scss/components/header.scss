@@ -1,5 +1,5 @@
 @use "../reset";
-@use "../form-elements";
+@use "../variables";
 
 .header {
     height: var(--header-height);
@@ -37,6 +37,10 @@
 
         a {
             position: relative;
+
+            @media #{variables.media-query(max, md)} {
+                font-size: 15px;
+            }
 
             &.active {
                 &::after {

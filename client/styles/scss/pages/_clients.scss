@@ -1,0 +1,86 @@
+@use "../variables";
+
+.clients {
+    padding-bottom: 75px;
+
+    > h2 {
+        font-size: 35px;
+    }
+}
+
+.add-client-modal-title {
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+#add-client-btn {
+    position: fixed;
+    right: var(--common-padding);
+    bottom: calc(var(--footer-height) + 15px);
+    min-width: 150px;
+}
+
+#clients-table {
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin-top: 50px;
+
+    thead {
+        tr {
+            border-bottom: 1px solid rgba(var(--primary-color), 0.2);
+        }
+    }
+
+    tbody {
+        tr {
+            transition: background-color ease 250ms;
+            border-bottom: 1px solid rgba(var(--primary-color), 0.1);
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(var(--primary-color), 0.05);
+            }
+        }
+    }
+
+    th {
+        font-weight: 500;
+        padding: 10px 15px;
+    }
+
+    td {
+        font-size: 14px;
+        padding: 20px 15px;
+    }
+}
+
+#add-client-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+
+    @media #{variables.media-query(max, md)} {
+        grid-template-columns: 1fr;
+    }
+
+    label,
+    input {
+        display: block;
+    }
+
+    label {
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+
+        &[type="submit"] {
+            grid-column: 1 / -1;
+            max-width: 150px;
+            margin: 25px auto 0;
+        }
+    }
+}
