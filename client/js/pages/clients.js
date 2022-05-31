@@ -1,12 +1,12 @@
 import clientsService from "../services/clients.service.js";
-import * as client from "./base-clients.js";
+import * as baseClient from "./base-clients.js";
 
 /**
  * Renders the clients table
  */
 function renderClientsTable() {
     const existentClients = clientsService.getClients() ?? [];
-    client.renderTableBody(existentClients);
+    baseClient.renderTableBody(existentClients);
 }
 
 /**
@@ -16,10 +16,10 @@ function renderClientsTable() {
 function saveClient(e) {
     e.preventDefault();
     const existentClients = clientsService.getClients() ?? [];
-    const client = client.getNewClient(e, existentClients.length);
+    const client = baseClient.getNewClient(e, existentClients.length);
     clientsService.saveClient(client);
     renderClientsTable();
 }
 
-client.addEditClientForm.addEventListener("submit", saveClient);
+baseClient.addEditClientForm.addEventListener("submit", saveClient);
 renderClientsTable();
