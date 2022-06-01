@@ -15,7 +15,7 @@ async function renderTable() {
  */
 async function editClient(id) {
     const client = await clientsService.getClientById(id);
-    baseClient.toggleAddClientModal(true, "EDIT", client);
+    baseClient.toggleAddClientModal(true, baseClient.formModes.EDIT, client);
 }
 
 /**
@@ -31,12 +31,24 @@ async function deleteClient(id) {
  * Handles the form submission
  * @param {Event} e The form event
  */
-async function saveClient(e) {
+async function handleFormSubmit(e) {
     e.preventDefault();
-    const client = baseClient.getClientDataFromForm(e);
-    await clientsService.saveClient(client);
+
+    switch (e.target.dataset.mode) {
+        case baseClient.formModes.EDIT:
+            const id = baseClient.addEditClientModal.querySelector("[name='id']").value;
+            const updatedClient = baseClient.getClientDataFromForm(e, id);
+            await clientsService.editClient(id, updatedClient);
+            break;
+        case baseClient.formModes.ADD:
+            const clients = await clientsService.getClients();
+            const newClient = baseClient.getClientDataFromForm(e, clients.length);
+            await clientsService.saveClient(newClient);
+            break;
+    }
+
     renderTable();
 }
 
-baseClient.addEditClientForm.addEventListener("submit", saveClient);
+baseClient.addEditClientForm.addEventListener("submit", handleFormSubmit);
 renderTable();

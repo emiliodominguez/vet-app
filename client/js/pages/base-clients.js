@@ -1,5 +1,7 @@
 export const addEditClientForm = document.querySelector("#add-edit-client-form");
 export const addEditClientModal = document.querySelector("#add-edit-client-modal");
+export const formModes = Object.freeze({ ADD: "ADD", EDIT: "EDIT" });
+
 const clientsTable = document.querySelector("#clients-table");
 const clientsTableHead = clientsTable.querySelector("thead");
 const clientsTableBody = clientsTable.querySelector("tbody");
@@ -129,6 +131,6 @@ export function getClientDataFromForm(e, id) {
 }
 
 // Common function calls
-addClientBtn.addEventListener("click", () => toggleAddClientModal(true, "ADD"));
+addClientBtn.addEventListener("click", () => toggleAddClientModal(true, formModes.ADD));
 renderTableHead();
 renderFormFields();
