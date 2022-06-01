@@ -13,6 +13,9 @@ const clientFields = Object.freeze([
     { label: "Address", key: "address", inputType: "string", placeholder: "Client's address", required: true },
 ]);
 
+/**
+ * Renders the form with the corresponding fields
+ */
 function renderFormFields() {
     for (const field of clientFields) {
         const div = document.createElement("div");
@@ -30,6 +33,9 @@ function renderFormFields() {
     }
 }
 
+/**
+ * Renders the table head with the corresponding fields
+ */
 function renderTableHead() {
     const tr = document.createElement("tr");
 
