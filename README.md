@@ -70,9 +70,13 @@ pip install -r requirements.txt
 
 5 - Run server
 
+For development:
+
 ```bash
-uvicorn app:app
+uvicorn app:app --reload
 ```
+
+> --reload is for the server to restart on changes
 
 ### Every time you run the server
 
