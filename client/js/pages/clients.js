@@ -6,7 +6,25 @@ import * as baseClient from "./base-clients.js";
  */
 async function renderTable() {
     const clients = await clientsService.getClients();
-    baseClient.renderTableBody(clients ?? []);
+    baseClient.renderTableBody(clients ?? [], editClient, deleteClient);
+}
+
+/**
+ * Edits any given client
+ * @param {string | number} id
+ */
+async function editClient(id) {
+    const client = await clientsService.getClientById(id);
+    baseClient.toggleAddClientModal(true, "EDIT", client);
+}
+
+/**
+ * Deletes any given client
+ * @param {string | number} id
+ */
+async function deleteClient(id) {
+    await clientsService.deleteClient(id);
+    renderTable();
 }
 
 /**

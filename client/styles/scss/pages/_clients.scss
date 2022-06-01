@@ -43,7 +43,6 @@
         tr {
             transition: background-color ease 250ms;
             border-bottom: 1px solid rgba(var(--primary-color), 0.1);
-            cursor: pointer;
 
             &:hover {
                 background-color: rgba(var(--primary-color), 0.05);
