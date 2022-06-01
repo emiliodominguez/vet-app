@@ -31,10 +31,10 @@ async function deleteClient(id) {
  * Handles the form submission
  * @param {Event} e The form event
  */
-function saveClient(e) {
+async function saveClient(e) {
     e.preventDefault();
     const client = baseClient.getClientDataFromForm(e);
-    clientsService.saveClient(client);
+    await clientsService.saveClient(client);
     renderTable();
 }
 
