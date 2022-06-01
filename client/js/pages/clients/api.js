@@ -1,11 +1,12 @@
-import clientsService from "../../services/clients/clients.service.js";
 import * as baseClient from "./shared.js";
+import { formModes } from "../../shared/constants.js";
+import clientsService from "../../services/clients/api.service.js";
 
 /**
  * Renders the clients table
  */
 async function renderTable() {
-    const clients = await clientsService.getClients();
+    const clients = (await clientsService.getClients()).filter((x) => x.is_active !== false);
     baseClient.renderTableBody(clients ?? [], editClient, deleteClient);
 }
 
@@ -15,8 +16,7 @@ async function renderTable() {
  */
 async function editClient(id) {
     const client = await clientsService.getClientById(id);
-    console.log(client);
-    baseClient.toggleAddClientModal(true, baseClient.formModes.EDIT, client);
+    baseClient.toggleAddClientModal(true, formModes.EDIT, client);
 }
 
 /**
@@ -38,12 +38,12 @@ async function handleFormSubmit(e) {
     e.preventDefault();
 
     switch (e.target.dataset.mode) {
-        case baseClient.formModes.EDIT:
+        case formModes.EDIT:
             const id = baseClient.addEditClientModal.querySelector("[name='id']").value;
-            const updatedClient = baseClient.getClientDataFromForm(e, id);
+            const updatedClient = baseClient.getClientDataFromForm(e);
             await clientsService.editClient(id, updatedClient);
             break;
-        case baseClient.formModes.ADD:
+        case formModes.ADD:
             const newClient = baseClient.getClientDataFromForm(e);
             await clientsService.saveClient(newClient);
             break;

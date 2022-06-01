@@ -1,15 +1,14 @@
+import { API_URL } from "../../shared/constants.js";
 import httpService from "../shared/http.service.js";
 import "../../types.js";
 
 class ClientsService {
-    #apiUrl = "http://127.0.0.1:8000";
-
     /**
      * Gets the clients
      * @returns {Promise<Client[]>} The array of clients
      */
     async getClients() {
-        return await httpService.get(`${this.#apiUrl}/clients`);
+        return await httpService.get(`${API_URL}/clients`);
     }
 
     /**
@@ -18,7 +17,7 @@ class ClientsService {
      * @returns {Promise<Client>} The client
      */
     async getClientById(id) {
-        return await httpService.get(`${this.#apiUrl}/clients/${id}`);
+        return await httpService.get(`${API_URL}/clients/${id}`);
     }
 
     /**
@@ -26,7 +25,7 @@ class ClientsService {
      * @param {Client} client The client
      */
     async saveClient(client) {
-        return await httpService.post(`${this.#apiUrl}/clients`, client);
+        return await httpService.post(`${API_URL}/clients`, client);
     }
 
     /**
@@ -35,7 +34,7 @@ class ClientsService {
      * @param {Client} client The client
      */
     async editClient(id, client) {
-        return await httpService.put(`${this.#apiUrl}/clients/${id}`, client);
+        return await httpService.put(`${API_URL}/clients/${id}`, client);
     }
 
     /**
@@ -43,7 +42,7 @@ class ClientsService {
      * @param {string | number} id The ID
      */
     async hardDeleteClient(id) {
-        return await httpService.delete(`${this.#apiUrl}/clients/${id}`);
+        return await httpService.delete(`${API_URL}/clients/${id}`);
     }
 
     /**
@@ -51,7 +50,7 @@ class ClientsService {
      * @param {string | number} id The ID
      */
     async softDeleteClient(id) {
-        return await httpService.patch(`${this.#apiUrl}/clients/${id}`);
+        return await httpService.patch(`${API_URL}/clients/${id}`);
     }
 }
 

@@ -65,6 +65,8 @@
             padding: 20px 15px;
 
             &.actions {
+                text-align: right;
+
                 button {
                     @extend .btn, .sm;
 

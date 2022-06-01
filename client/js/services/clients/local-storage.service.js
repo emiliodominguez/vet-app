@@ -10,8 +10,7 @@ class ClientsServiceLS {
      */
     getClients() {
         const existentClients = localStorageService.get(this.#localStorageKey);
-        const clients = existentClients ? JSON.parse(existentClients) : [];
-        return clients;
+        return existentClients ? JSON.parse(existentClients) : [];
     }
 
     /**
@@ -64,12 +63,26 @@ class ClientsServiceLS {
      * Deletes an existent client
      * @param {string | number} id The ID
      */
-    deleteClient(id) {
+    hardDeleteClient(id) {
         const clients = this.getClients();
         const { index, client } = this.getClientById(id);
 
         if (client) {
             clients.splice(index, 1);
+            this.saveClients(clients);
+        }
+    }
+
+    /**
+     * Deletes an existent client
+     * @param {string | number} id The ID
+     */
+    softDeleteClient(id) {
+        const clients = this.getClients();
+        const { index, client } = this.getClientById(id);
+
+        if (client) {
+            clients.splice(index, 1, { ...client, is_active: 0 });
             this.saveClients(clients);
         }
     }

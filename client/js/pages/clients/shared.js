@@ -1,8 +1,8 @@
-// import "../../types.js";
+import { formModes } from "../../shared/constants.js";
+import "../../types.js";
 
 export const addEditClientForm = document.querySelector("#add-edit-client-form");
 export const addEditClientModal = document.querySelector("#add-edit-client-modal");
-export const formModes = Object.freeze({ ADD: "ADD", EDIT: "EDIT" });
 
 const clientsTable = document.querySelector("#clients-table");
 const clientsTableHead = clientsTable.querySelector("thead");
@@ -129,15 +129,14 @@ export function toggleAddClientModal(open, mode, clientToUpdate = null) {
 /**
  * Handles the form submission
  * @param {Event} e The form event
- * @param {string | number} id The ID
  * @returns {Client} The updated client data
  */
-export function getClientDataFromForm(e, id) {
+export function getClientDataFromForm(e) {
     const formData = new FormData(e.target);
     const clientData = clientFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
     addEditClientForm.reset();
     toggleAddClientModal(false);
-    return id ? { id, ...clientData } : clientData;
+    return clientData;
 }
 
 // Common function calls
