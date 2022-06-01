@@ -1,5 +1,5 @@
-import httpService from "./http.service.js";
-import "../types.js";
+import httpService from "../shared/http.service.js";
+import "../../types.js";
 
 class ClientsService {
     #apiUrl = "http://127.0.0.1:8000";
@@ -39,11 +39,19 @@ class ClientsService {
     }
 
     /**
-     * Deletes an existent client
+     * Hard delete an existent client
      * @param {string | number} id The ID
      */
-    async deleteClient(id) {
+    async hardDeleteClient(id) {
         return await httpService.delete(`${this.#apiUrl}/clients/${id}`);
+    }
+
+    /**
+     * Soft delete an existent client
+     * @param {string | number} id The ID
+     */
+    async softDeleteClient(id) {
+        return await httpService.patch(`${this.#apiUrl}/clients/${id}`);
     }
 }
 

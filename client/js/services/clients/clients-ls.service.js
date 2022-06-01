@@ -1,5 +1,5 @@
-import localStorageService from "./local-storage.service.js";
-import "../types.js";
+import localStorageService from "../shared/local-storage.service.js";
+import "../../types.js";
 
 class ClientsServiceLS {
     #localStorageKey = "clients";

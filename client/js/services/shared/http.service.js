@@ -1,6 +1,6 @@
 /**
  * @typedef ResolverOptions
- * @property {"GET" | "POST" | "PUT" | "DELETE"} method The HTTP method
+ * @property {"GET" | "POST" | "PUT" | "PATCH" | "DELETE"} method The HTTP method
  * @property {string} url  The url
  * @property {any} payload The payload
  */
@@ -30,6 +30,15 @@ class HttpService {
      */
     async put(url, payload) {
         return await this.#resolve({ method: "PUT", url, payload });
+    }
+
+    /**
+     * ### The HTTP service patch method
+     * @param {string} url  The url
+     * @param {any} payload The payload
+     */
+    async patch(url, payload) {
+        return await this.#resolve({ method: "PATCH", url, payload });
     }
 
     /**

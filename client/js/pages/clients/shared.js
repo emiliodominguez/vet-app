@@ -1,4 +1,4 @@
-import "../types.js";
+// import "../../types.js";
 
 export const addEditClientForm = document.querySelector("#add-edit-client-form");
 export const addEditClientModal = document.querySelector("#add-edit-client-modal");
@@ -9,12 +9,12 @@ const clientsTableHead = clientsTable.querySelector("thead");
 const clientsTableBody = clientsTable.querySelector("tbody");
 const addClientBtn = document.querySelector("#add-client-btn");
 const clientFields = Object.freeze([
-    { label: "Name", key: "name", inputType: "string", placeholder: "Client's name", required: true },
-    { label: "Email", key: "email", inputType: "email", placeholder: "Client's email", required: true },
-    { label: "Age", key: "age", inputType: "number", placeholder: "Client's age", required: true },
-    { label: "Birth date", key: "birth_date", inputType: "date", required: true },
-    { label: "Phone", key: "phone", inputType: "tel", placeholder: "Client's phone", required: true },
-    { label: "Address", key: "address", inputType: "string", placeholder: "Client's address", required: true },
+    { key: "name", label: "Name", inputType: "string", placeholder: "Client's name", required: true },
+    { key: "email", label: "Email", inputType: "email", placeholder: "Client's email", required: true },
+    { key: "age", label: "Age", inputType: "number", placeholder: "Client's age", required: true },
+    { key: "birth_date", label: "Birth date", inputType: "date", required: true },
+    { key: "phone", label: "Phone", inputType: "tel", placeholder: "Client's phone", required: true },
+    { key: "address", label: "Address", inputType: "string", placeholder: "Client's address", required: true },
 ]);
 
 /**
@@ -26,12 +26,15 @@ function renderFormFields() {
         const label = document.createElement("label");
         const input = document.createElement("input");
 
+        // Label
         label.for = field.key;
         label.textContent = field.label;
+        // Input
         input.name = field.key;
         input.placeholder = field.placeholder;
         input.type = field.inputType;
         input.required = field.required;
+
         div.append(label, input);
         addEditClientForm.append(div);
     }
@@ -56,7 +59,7 @@ function renderTableHead() {
  *
  * @param {Client[]} existentClients
  * @param {(id: number | string) => void} onEdit
- * @param {(id: number | string) => void} onDelete
+ * @param {(id: number | string, soft: boolean) => void} onDelete
  */
 export function renderTableBody(existentClients, onEdit, onDelete) {
     clientsTableBody.innerHTML = "";
@@ -67,29 +70,30 @@ export function renderTableBody(existentClients, onEdit, onDelete) {
         for (const client of existentClients) {
             const tr = document.createElement("tr");
 
-            for (const [key, value] of Object.entries(client)) {
-                if (tableFieldsKey.includes(key)) {
-                    const td = document.createElement("td");
-                    td.textContent = value;
-                    tr.append(td);
-                }
+            for (const key of tableFieldsKey) {
+                const td = document.createElement("td");
+                td.textContent = client[key];
+                tr.append(td);
             }
 
             // Actions
             const actionsCell = document.createElement("td");
             const editBtn = document.createElement("button");
-            const deleteBtn = document.createElement("button");
+            const softDeleteBtn = document.createElement("button");
+            const hardDeleteBtn = document.createElement("button");
 
             actionsCell.classList.add("actions");
             // Edit
             editBtn.textContent = "Edit";
             editBtn.addEventListener("click", () => onEdit?.(client.id));
-            // Delete
-            deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => onDelete?.(client.id));
+            // Soft Delete
+            softDeleteBtn.textContent = "Soft delete";
+            softDeleteBtn.addEventListener("click", () => onDelete?.(client.id, true));
+            // Hard Delete
+            hardDeleteBtn.textContent = "Hard delete";
+            hardDeleteBtn.addEventListener("click", () => onDelete?.(client.id, false));
 
-            actionsCell.append(editBtn, deleteBtn);
-
+            actionsCell.append(editBtn, softDeleteBtn, hardDeleteBtn);
             tr.append(actionsCell);
             clientsTableBody.append(tr);
         }
@@ -111,6 +115,10 @@ export function toggleAddClientModal(open, mode, clientToUpdate = null) {
     addEditClientForm.dataset.mode = mode;
 
     if (clientToUpdate) {
+        const idInput = addEditClientForm.querySelector("[name='id']");
+
+        idInput.value = clientToUpdate.id;
+
         clientFields.forEach((prop) => {
             const updatedProp = addEditClientForm.querySelector(`[name='${prop.key}']`);
             if (updatedProp) updatedProp.value = clientToUpdate[prop.key];

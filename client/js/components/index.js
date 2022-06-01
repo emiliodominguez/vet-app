@@ -1,2 +1,2 @@
-import "./layout/index.js";
-import "./shared/modal.js";
+import "./layout/main/index.js";
+import "./shared/index.js";

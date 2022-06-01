@@ -5,36 +5,34 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../styles/css/main.css" />
+        <script src="./js/main.js" type="module"></script>
         <title>Vet-App | Clients (Local Storage)</title>
     </head>
     <body>
-        <app-header></app-header>
+        <app-layout>
+            <main class="clients" slot="children">
+                <h2>Clients</h2>
 
-        <main class="clients">
-            <h2>Clients</h2>
+                <div class="table-container">
+                    <table id="clients-table">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
-            <div class="table-container">
-                <table id="clients-table">
-                    <thead></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+                <button class="btn" id="add-client-btn">+ Add</button>
 
-            <button class="btn" id="add-client-btn">+ Add</button>
-        </main>
+                <app-modal id="add-edit-client-modal">
+                    <h3 slot="modal-title" class="client-modal-title">Add/Edit client</h3>
 
-        <app-modal id="add-edit-client-modal">
-            <h3 slot="modal-title" class="client-modal-title">Add/Edit client</h3>
+                    <form method="POST" id="add-edit-client-form" slot="modal-content">
+                        <input type="hidden" name="id" />
+                        <input type="submit" value="Accept" class="btn positive" />
+                    </form>
+                </app-modal>
+            </main>
+        </app-layout>
 
-            <form method="POST" id="add-edit-client-form" slot="modal-content">
-                <input type="hidden" name="id" />
-                <input type="submit" value="Accept" class="btn positive" />
-            </form>
-        </app-modal>
-
-        <app-footer></app-footer>
-
-        <script src="../js/main.js" type="module"></script>
-        <script src="../js/pages/clients-ls.js" type="module"></script>
+        <script src="./js/pages/clients/clients-ls.js" type="module"></script>
     </body>
 </html>
