@@ -1,5 +1,4 @@
 from datetime import date
-
 from pydantic import BaseModel
 
 
@@ -37,7 +36,7 @@ class ClientCreate(ClientBase):
     pass
 
 
-class Client(ClientBase):
+class ClientSchema(ClientBase):
     id: int
     is_active: bool
     pets: list[Pet] = []
