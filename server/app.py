@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -34,21 +34,28 @@ def get_db():
 
 
 @app.post("/clients/", response_model=schemas.Client)
-def create_user(user: schemas.ClientCreate, db: Session = Depends(get_db)):
+def create_user(user: schemas.ClientCreate, db: Session = Depends(get_db)) -> schemas.Client:
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=409, detail="Email already registered")
     return crud.create_user(db=db, user=user)
 
 @app.put("/clients/{user_id}", response_model=schemas.Client)
-def update_user(user_id: int, user: schemas.ClientCreate, db: Session = Depends(get_db)):
+def update_user(user_id: int, user: schemas.ClientCreate, db: Session = Depends(get_db)) -> schemas.ClientCreate:
     db_user = crud.get_user(db, user_id=user_id)
     if not db_user:
         raise HTTPException(status_code=204, detail="User does not exists")
     return crud.update_user(db=db, user=user, db_user=db_user)
 
-@app.delete("/clients/{user_id}", response_model=Any)
-def delete_user(user_id: int, db: Session = Depends(get_db)):
+@app.patch("/clients/{user_id}", response_model=Dict)
+def soft_delete_user(user_id: int, db: Session = Depends(get_db)) -> Dict:
+    db_user = crud.get_user(db, user_id=user_id)
+    if not db_user:
+        raise HTTPException(status_code=204, detail="User does not exists")
+    return crud.soft_delete_user(db=db, db_user=db_user)
+
+@app.delete("/clients/{user_id}", response_model=Dict)
+def delete_user(user_id: int, db: Session = Depends(get_db)) -> Dict:
     db_user = crud.get_user(db, user_id=user_id)
     if not db_user:
         raise HTTPException(status_code=204, detail="User does not exists")
@@ -56,24 +63,24 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/clients/", response_model=list[schemas.Client])
-def read_clients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_clients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)) -> list[models.Client]:
     clients = crud.get_clients(db, skip=skip, limit=limit)
     return clients
 
 
 @app.get("/clients/{user_id}", response_model=schemas.Client)
-def read_user(user_id: int, db: Session = Depends(get_db)):
+def read_user(user_id: int, db: Session = Depends(get_db)) -> list[models.Client]:
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=204, detail="Client not found")
     return db_user
 
-@app.post("/clients/{user_id}/pets/", response_model=schemas.Pet)
-def create_pet_for_user(user_id: int, pet: schemas.PetCreate, db: Session = Depends(get_db)):
-    return crud.create_user_pet(db=db, pet=pet, user_id=user_id)
+# @app.post("/clients/{user_id}/pets/", response_model=schemas.Pet)
+# def create_pet_for_user(user_id: int, pet: schemas.PetCreate, db: Session = Depends(get_db)):
+#     return crud.create_user_pet(db=db, pet=pet, user_id=user_id)
 
 
-@app.get("/pets/", response_model=list[schemas.Pet])
-def read_pets(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    pets = crud.get_pets(db, skip=skip, limit=limit)
-    return pets
+# @app.get("/pets/", response_model=list[schemas.Pet])
+# def read_pets(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+#     pets = crud.get_pets(db, skip=skip, limit=limit)
+#     return pets
