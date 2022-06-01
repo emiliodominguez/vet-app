@@ -17,9 +17,6 @@ class Client(Base):
 
     pets = relationship("Pet", back_populates="owner")
 
-    def __repr__(self):
-        return f'{self.id} - {self.email}'
-
 
 class Pet(Base):
     __tablename__ = "pets"
