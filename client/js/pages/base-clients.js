@@ -1,3 +1,5 @@
+import "../types.js";
+
 export const addEditClientForm = document.querySelector("#add-edit-client-form");
 export const addEditClientModal = document.querySelector("#add-edit-client-modal");
 export const formModes = Object.freeze({ ADD: "ADD", EDIT: "EDIT" });
