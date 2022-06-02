@@ -1,8 +1,6 @@
-import { getHtmlTemplate, getStyleTag } from "../../helpers.js";
-import "../header/index.js";
-import "../footer/index.js";
+import { getHtmlTemplate, getStyleTag } from "../helpers.js";
 
-class Main extends HTMLElement {
+class Footer extends HTMLElement {
     constructor() {
         super();
     }
@@ -18,7 +16,7 @@ class Main extends HTMLElement {
      */
     async setTemplate() {
         const template = await getHtmlTemplate("./template.html", import.meta.url);
-        this.shadowRoot.innerHTML += template;
+        this.shadowRoot.innerHTML += template.replace("{{year}}", new Date().getFullYear());
     }
 
     /**
@@ -30,4 +28,4 @@ class Main extends HTMLElement {
     }
 }
 
-customElements.define("app-layout", Main);
+customElements.define("app-footer", Footer);

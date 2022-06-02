@@ -1,5 +1,5 @@
 import { formModes } from "../../shared/constants.js";
-import "../../types.js";
+import "../../shared/types.js";
 
 export const addEditForm = document.querySelector("#add-edit-form");
 export const addEditModal = document.querySelector("#add-edit-modal");

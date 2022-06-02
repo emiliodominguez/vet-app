@@ -1,6 +1,6 @@
 import { apiUrl } from "../../shared/constants.js";
 import httpService from "../shared/http.service.js";
-import "../../types.js";
+import "../../shared/types.js";
 
 class PetsService {
     /**
