@@ -1,5 +1,5 @@
 import { getHtmlTemplate, getStyleTag } from "../../helpers.js";
-import { routes } from "../../../config/routes.js";
+import { routes } from "../../../shared/routes.js";
 
 class Header extends HTMLElement {
     constructor() {
