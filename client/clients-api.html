@@ -5,27 +5,28 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../styles/css/main.css" />
+        <link rel="shortcut icon" href="./assets/home-bg.jpg" type="image/jpg" />
         <script src="./js/components/index.js" type="module"></script>
         <title>Vet-App | Clients</title>
     </head>
     <body>
         <app-layout>
             <main class="clients" slot="children">
-                <h2>Clients</h2>
+                <h2>Clients (API)</h2>
 
                 <div class="table-container">
-                    <table id="clients-table">
+                    <table id="data-table">
                         <thead></thead>
                         <tbody></tbody>
                     </table>
                 </div>
 
-                <button class="btn" id="add-client-btn">+ Add</button>
+                <button class="btn" id="add-btn">+ Add</button>
 
-                <app-modal id="add-edit-client-modal">
-                    <h3 slot="modal-title" class="client-modal-title">Add/Edit client</h3>
+                <app-modal id="add-edit-modal">
+                    <h3 slot="modal-title" class="modal-title">Add/Edit client</h3>
 
-                    <form method="POST" id="add-edit-client-form" slot="modal-content">
+                    <form method="POST" id="add-edit-form" slot="modal-content">
                         <input type="hidden" name="id" />
                         <input type="submit" value="Accept" class="btn positive" />
                     </form>

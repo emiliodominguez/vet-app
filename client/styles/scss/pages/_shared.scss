@@ -1,0 +1,104 @@
+@use "../variables";
+@use "../form-elements";
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+#data-table {
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin-top: 50px;
+
+    thead {
+        tr {
+            border-bottom: 1px solid rgba(var(--primary-color), 0.2);
+        }
+    }
+
+    tbody {
+        tr {
+            transition: background-color ease 250ms;
+            border-bottom: 1px solid rgba(var(--primary-color), 0.1);
+
+            &:hover {
+                background-color: rgba(var(--primary-color), 0.05);
+            }
+        }
+
+        > p {
+            // No records message
+            padding: 15px;
+            color: rgba(var(--primary-color), 0.5);
+        }
+    }
+
+    th {
+        font-weight: 500;
+        padding: 10px 15px;
+    }
+
+    td {
+        font-size: 14px;
+        padding: 20px 15px;
+
+        &.actions {
+            text-align: right;
+
+            button {
+                @extend .btn, .sm;
+
+                + button {
+                    @extend .danger;
+
+                    margin-left: 15px;
+                }
+            }
+        }
+    }
+}
+
+#add-btn {
+    position: fixed;
+    right: var(--common-padding);
+    bottom: calc(var(--footer-height) + 15px);
+    min-width: 150px;
+}
+
+.modal-title {
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+#add-edit-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+
+    @media #{variables.media-query(max, md)} {
+        grid-template-columns: 1fr;
+    }
+
+    label,
+    input {
+        display: block;
+    }
+
+    label {
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+
+        &[type="submit"] {
+            grid-column: 1 / -1;
+            order: 1;
+            max-width: 150px;
+            margin: 25px auto 0;
+        }
+    }
+}

@@ -7,12 +7,12 @@
         <link rel="stylesheet" href="../styles/css/main.css" />
         <link rel="shortcut icon" href="./assets/home-bg.jpg" type="image/jpg" />
         <script src="./js/components/index.js" type="module"></script>
-        <title>Vet-App | Clients (Local Storage)</title>
+        <title>Vet-App | Pets (API)</title>
     </head>
     <body>
         <app-layout>
-            <main class="clients" slot="children">
-                <h2>Clients (LS)</h2>
+            <main class="pets" slot="children">
+                <h2>Pets (API)</h2>
 
                 <div class="table-container">
                     <table id="data-table">
@@ -24,7 +24,7 @@
                 <button class="btn" id="add-btn">+ Add</button>
 
                 <app-modal id="add-edit-modal">
-                    <h3 slot="modal-title" class="modal-title">Add/Edit client</h3>
+                    <h3 slot="modal-title" class="pet-modal-title">Add/Edit pet</h3>
 
                     <form method="POST" id="add-edit-form" slot="modal-content">
                         <input type="hidden" name="id" />
@@ -34,6 +34,6 @@
             </main>
         </app-layout>
 
-        <script src="./js/pages/clients/local-storage.js" type="module"></script>
+        <script src="./js/pages/pets/api.js" type="module"></script>
     </body>
 </html>

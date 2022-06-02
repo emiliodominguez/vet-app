@@ -1,4 +1,4 @@
-import * as baseClient from "./shared.js";
+import * as shared from "./shared.js";
 import { formModes } from "../../shared/constants.js";
 import clientsLsService from "../../services/clients/local-storage.service.js";
 
@@ -7,7 +7,7 @@ import clientsLsService from "../../services/clients/local-storage.service.js";
  */
 function renderTable() {
     const clients = clientsLsService.getClients().filter((x) => x.is_active);
-    baseClient.renderTableBody(clients, editClient, deleteClient);
+    shared.renderTableBody(clients, editClient, deleteClient);
 }
 
 /**
@@ -16,7 +16,7 @@ function renderTable() {
  */
 function editClient(id) {
     const { client } = clientsLsService.getClientById(id);
-    baseClient.toggleAddClientModal(true, formModes.EDIT, client);
+    shared.toggleModal(true, formModes.EDIT, client);
 }
 
 /**
@@ -40,14 +40,14 @@ function handleFormSubmit(e) {
 
     switch (e.target.dataset.mode) {
         case formModes.EDIT:
-            const id = baseClient.addEditClientModal.querySelector("[name='id']").value;
+            const id = shared.addEditModal.querySelector("[name='id']").value;
             const { client } = clientsLsService.getClientById(id);
-            const updatedClient = baseClient.getClientDataFromForm(e);
+            const updatedClient = shared.getDataFromForm(e);
             clientsLsService.editClient(id, { ...client, ...updatedClient });
             break;
         case formModes.ADD:
             const clients = clientsLsService.getClients();
-            const newClient = baseClient.getClientDataFromForm(e);
+            const newClient = shared.getDataFromForm(e);
             clientsLsService.saveClient({ id: clients.length, is_active: 1, ...newClient });
             break;
     }
@@ -55,5 +55,5 @@ function handleFormSubmit(e) {
     renderTable();
 }
 
-baseClient.addEditClientForm.addEventListener("submit", handleFormSubmit);
+shared.addEditForm.addEventListener("submit", handleFormSubmit);
 renderTable();
