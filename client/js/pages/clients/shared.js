@@ -56,18 +56,18 @@ function renderTableHead() {
 }
 
 /**
- *
- * @param {Client[]} existentClients
+ * Renders the table body
+ * @param {Client[]} clients
  * @param {(id: number | string) => void} onEdit
  * @param {(id: number | string, soft: boolean) => void} onDelete
  */
-export function renderTableBody(existentClients, onEdit, onDelete) {
+export function renderTableBody(clients, onEdit, onDelete) {
     tableBody.innerHTML = "";
 
-    if (existentClients.length) {
+    if (clients.length) {
         const tableFieldsKey = entityFields.map((x) => x.key);
 
-        for (const client of existentClients) {
+        for (const client of clients) {
             const tr = document.createElement("tr");
 
             for (const key of tableFieldsKey) {
@@ -108,20 +108,20 @@ export function renderTableBody(existentClients, onEdit, onDelete) {
  * Toggles the add client modal
  * @param {boolean} open
  * @param {"ADD" | "EDIT"} mode The form mode
- * @param {Client} clientToUpdate The existent client data (if edit mode)
+ * @param {Client} client The existent client data (if edit mode)
  */
-export function toggleModal(open, mode, clientToUpdate = null) {
+export function toggleModal(open, mode, client = null) {
     addEditModal.setAttribute("open", open);
     addEditForm.dataset.mode = mode;
 
-    if (clientToUpdate) {
+    if (client) {
         const idInput = addEditForm.querySelector("[name='id']");
 
-        idInput.value = clientToUpdate.id;
+        idInput.value = client.id;
 
         entityFields.forEach((prop) => {
             const updatedProp = addEditForm.querySelector(`[name='${prop.key}']`);
-            if (updatedProp) updatedProp.value = clientToUpdate[prop.key];
+            if (updatedProp) updatedProp.value = client[prop.key];
         });
     }
 }
