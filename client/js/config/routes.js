@@ -1,7 +1,7 @@
 export const routes = Object.freeze([
     { label: "Home", url: "/" },
-    { label: "Clients (API)", url: "/clients-api.html" },
-    { label: "Clients (LS)", url: "/clients-ls.html" },
-    { label: "Pets (API)", url: "/pets-api.html" },
-    { label: "Pets (LS)", url: "/pets-ls.html" },
+    { label: "Clients (API)", url: "/pages/clients-api.html" },
+    { label: "Clients (LS)", url: "/pages/clients-ls.html" },
+    { label: "Pets (API)", url: "/pages/pets-api.html" },
+    { label: "Pets (LS)", url: "/pages/pets-ls.html" },
 ]);

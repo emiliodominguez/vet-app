@@ -5,14 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../styles/css/main.css" />
-        <link rel="shortcut icon" href="./assets/home-bg.jpg" type="image/jpg" />
-        <script src="./js/components/index.js" type="module"></script>
-        <title>Vet-App | Pets (Local Storage)</title>
+        <link rel="shortcut icon" href="../assets/home-bg.jpg" type="image/jpg" />
+        <script src="../js/components/index.js" type="module"></script>
+        <title>Vet-App | Clients</title>
     </head>
     <body>
         <app-layout>
-            <main class="pets" slot="children">
-                <h2>Pets (LS)</h2>
+            <main class="clients" slot="children">
+                <h2>Clients (API)</h2>
 
                 <div class="table-container">
                     <table id="data-table">
@@ -24,7 +24,7 @@
                 <button class="btn" id="add-btn">+ Add</button>
 
                 <app-modal id="add-edit-modal">
-                    <h3 slot="modal-title" class="modal-title">Add/Edit pet</h3>
+                    <h3 slot="modal-title" class="modal-title">Add/Edit client</h3>
 
                     <form method="POST" id="add-edit-form" slot="modal-content">
                         <input type="hidden" name="id" />
@@ -34,6 +34,6 @@
             </main>
         </app-layout>
 
-        <script src="./js/pages/pets/local-storage.js" type="module"></script>
+        <script src="../js/pages/clients/api.js" type="module"></script>
     </body>
 </html>
