@@ -26,7 +26,13 @@ def create_client(db: Session, client: ClientCreate) -> Client:
     """
     Creates new client
     """
-    db_client = Client(email=client.email, name=client.name, age=client.age, birth_date=client.birth_date, phone=client.phone, address=client.address)
+    db_client = Client(
+        email = client.email,
+        name = client.name,
+        age = client.age,
+        birth_date = client.birth_date,
+        phone = client.phone,
+        address = client.address)
     db.add(db_client)
     db.commit()
     db.refresh(db_client)
@@ -38,7 +44,7 @@ def update_client(db: Session, client: ClientCreate, db_client:ClientCreate) -> 
     """
     for key, value in client:
         setattr(db_client, key, value)
-    db_client.is_active=True
+    db_client.is_active = True
     db.commit()
     db.refresh(db_client)
     return db_client
@@ -59,13 +65,3 @@ def soft_delete_client(db: Session, db_client: ClientCreate) -> Dict:
     db.commit()
     db.refresh(db_client)
     return {"ok": True}
-
-# def get_pets(db: Session, skip: int = 0, limit: int = 100):
-#     return db.query(models.Pet).offset(skip).limit(limit).all()
-
-# def create_client_pet(db: Session, pet: schemas.PetCreate, client_id: int):
-#     db_pet = models.Pet(**pet.dict(), owner_id=client_id)
-#     db.add(db_pet)
-#     db.commit()
-#     db.refresh(db_pet)
-#     return db_pet

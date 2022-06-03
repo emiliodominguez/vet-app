@@ -6,22 +6,22 @@ from connection import Base
 class Client(Base):
     __tablename__ = "clients"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
+    id = Column(Integer, primary_key = True, index = True)
+    email = Column(String, unique = True, index = True)
     name = Column(String)
     age = Column(Integer)
     birth_date = Column(Date)
     phone = Column(String)
     address = Column(String)
-    is_active = Column(Boolean, default=True)
+    is_active = Column(Boolean, default = True)
 
-    pets = relationship("Pet", back_populates="owner")
+    pets = relationship("Pet", back_populates = "owner")
 
 
 class Pet(Base):
     __tablename__ = "pets"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key = True, index = True)
     name = Column(String)
     birth_date = Column(Date)
     type = Column(String)

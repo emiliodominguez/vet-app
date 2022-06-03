@@ -21,13 +21,13 @@ def create_pet(db: Session, pet: PetCreate) -> Pet:
     Creates new pet
     """
     db_pet = Pet(
-        name=pet.name,
-        birth_date=pet.birth_date,
-        type=pet.type,
-        breed=pet.breed,
-        affection=pet.affection,
-        admission_date=pet.admission_date,
-        owner_id=1)
+        name = pet.name,
+        birth_date = pet.birth_date,
+        type = pet.type,
+        breed = pet.breed,
+        affection = pet.affection,
+        admission_date = pet.admission_date,
+        owner_id = 1)
     db.add(db_pet)
     db.commit()
     db.refresh(db_pet)
@@ -39,7 +39,7 @@ def update_pet(db: Session, pet: PetCreate, db_pet:PetCreate) -> PetCreate:
     """
     for key, value in pet:
         setattr(db_pet, key, value)
-    db_pet.is_active=True
+    db_pet.is_active = True
     db.commit()
     db.refresh(db_pet)
     return db_pet
