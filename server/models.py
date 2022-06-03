@@ -30,4 +30,4 @@ class Pet(Base):
     admission_date = Column(Date)
     owner_id = Column(Integer, ForeignKey("clients.id"))
 
-    owner = relationship("Client", back_populates="pets")
+    owner = relationship("Client")

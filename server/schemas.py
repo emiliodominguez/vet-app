@@ -15,7 +15,7 @@ class PetCreate(PetBase):
     pass
 
 
-class Pet(PetBase):
+class PetSchema(PetBase):
     id: int
     owner_id: int
 
@@ -39,7 +39,7 @@ class ClientCreate(ClientBase):
 class ClientSchema(ClientBase):
     id: int
     is_active: bool
-    pets: list[Pet] = []
+    pets: list[PetSchema] = []
 
     class Config:
         orm_mode = True

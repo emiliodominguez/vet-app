@@ -1,16 +1,16 @@
-from typing import List, Dict
+from typing import List, Dict, Union
 from sqlalchemy.orm import Session
 from models import Client
 from schemas import ClientCreate, ClientSchema
 
 
-def get_client(db: Session, client_id: int) -> Client:
+def get_client(db: Session, client_id: int) -> Union[Client,None]:
     """
     Get one client by Id
     """
     return db.query(Client).filter(Client.id == client_id).first()
 
-def get_client_by_email(db: Session, email: str) -> Client:
+def get_client_by_email(db: Session, email: str) ->  Union[Client,None]:
     """
     Get one client by email (unique)
     """
