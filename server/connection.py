@@ -12,3 +12,13 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
+def get_db():
+    """
+    Opens an instance of the db connection, 
+    yield it for the endpoint to use it, and then closes it
+    """
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from models import Base
 from schemas import ClientSchema, ClientCreate, PetCreate, PetSchema
-from connection import SessionLocal, engine
+from connection import engine, get_db
 from crud import clients, pets
 
 Base.metadata.create_all(bind=engine)
@@ -24,18 +24,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-def get_db():
-    """
-    Opens an instance of the db connection, 
-    yield it for the endpoint to use it, and then closes it
-    """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @app.get("/clients/", response_model=list[ClientSchema])
