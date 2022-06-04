@@ -26,6 +26,8 @@ app.add_middleware(
 )
 
 
+# Client endpoints
+
 @app.get("/clients/", response_model = list[ClientSchema])
 def read_clients(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     clients_list = clients.get_clients(db, skip = skip, limit = limit)
@@ -66,6 +68,7 @@ def delete_client(client_id: int, db: Session = Depends(get_db)) -> Dict:
         raise HTTPException(status_code = 204, detail = "User does not exists")
     return clients.delete_client(db = db, db_client = db_client)
 
+# Pet endpoints
 
 @app.get("/pets/", response_model = list[PetSchema])
 def read_pets(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
