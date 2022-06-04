@@ -12,7 +12,7 @@ class PetBase(BaseModel):
 
 
 class PetCreate(PetBase):
-    pass
+    owner_id: int
 
 
 class PetSchema(PetBase):

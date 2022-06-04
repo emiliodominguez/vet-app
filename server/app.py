@@ -75,9 +75,16 @@ def read_pets(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     pets_list = pets.get_pets(db, skip = skip, limit = limit)
     return pets_list
 
-@app.get("/pets/{client_id}", response_model = PetSchema)
-def read_pet(client_id: int, db: Session = Depends(get_db)) -> list[PetSchema]:
-    db_pet = pets.get_pet(db, client_id = client_id)
+@app.get("/pets/{pet_id}", response_model = PetSchema)
+def read_pet_by_id(pet_id: int, db: Session = Depends(get_db)) -> list[PetSchema]:
+    db_pet = pets.get_pet(db, pet_id = pet_id)
+    if db_pet is None:
+        raise HTTPException(status_code = 204, detail = "Pet not found")
+    return db_pet
+
+@app.get("/pets_by_owner/{client_id}", response_model = PetSchema)
+def read_pet_by_owner(client_id: int, db: Session = Depends(get_db)) -> list[PetSchema]:
+    db_pet = pets.get_pet_by_owner(db, client_id = client_id)
     if db_pet is None:
         raise HTTPException(status_code = 204, detail = "Pet not found")
     return db_pet
@@ -85,3 +92,17 @@ def read_pet(client_id: int, db: Session = Depends(get_db)) -> list[PetSchema]:
 @app.post("/pets/", response_model = PetSchema)
 def create_pet(pet: PetCreate, db: Session = Depends(get_db)) -> PetSchema:
     return pets.create_pet(db = db, pet = pet)
+
+@app.put("/pets/{pet_id}", response_model = PetSchema)
+def update_pet(pet_id: int, pet: PetCreate, db: Session = Depends(get_db)) -> PetCreate:
+    db_pet = pets.get_pet(db, pet_id = pet_id)
+    if not db_pet:
+        raise HTTPException(status_code = 204, detail = "Pet does not exists")
+    return pets.update_pet(db = db, pet = pet, db_pet = db_pet)
+
+@app.delete("/pets/{pet_id}", response_model = Dict)
+def delete_pet(pet_id: int, db: Session = Depends(get_db)) -> Dict:
+    db_pet = pets.get_pet(db, pet_id = pet_id)
+    if not db_pet:
+        raise HTTPException(status_code = 204, detail = "Pet does not exists")
+    return pets.delete_pet(db = db, db_pet = db_pet)

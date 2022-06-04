@@ -4,11 +4,18 @@ from models import Pet
 from schemas import PetCreate, PetSchema
 
 
-def get_pet(db: Session, client_id: int) -> Union[Pet,None]:
+def get_pet_by_owner(db: Session, client_id: int) -> Union[Pet,None]:
+    """
+    Get one pet by Owner Id
+    """
+    return db.query(Pet).filter(Pet.owner_id == client_id).first()
+
+
+def get_pet(db: Session, pet_id: int) -> Union[Pet,None]:
     """
     Get one pet by Id
     """
-    return db.query(Pet).filter(Pet.id == client_id).first()
+    return db.query(Pet).filter(Pet.id == pet_id).first()
 
 def get_pets(db: Session, skip: int = 0, limit: int = 100) -> List[PetSchema]:
     """
@@ -27,7 +34,7 @@ def create_pet(db: Session, pet: PetCreate) -> Pet:
         breed = pet.breed,
         affection = pet.affection,
         admission_date = pet.admission_date,
-        owner_id = 1)
+        owner_id = pet.owner_id)
     db.add(db_pet)
     db.commit()
     db.refresh(db_pet)
@@ -50,13 +57,4 @@ def delete_pet(db: Session, db_pet: PetCreate) -> Dict:
     """
     db.delete(db_pet)
     db.commit()
-    return {"ok": True}
-
-def soft_delete_pet(db: Session, db_pet: PetCreate) -> Dict:
-    """
-    MArk as inactive a pet
-    """
-    db_pet.is_active = False
-    db.commit()
-    db.refresh(db_pet)
     return {"ok": True}
