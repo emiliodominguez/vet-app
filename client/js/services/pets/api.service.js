@@ -12,6 +12,15 @@ class PetsService {
     }
 
     /**
+     * Gets any give client pets
+     * @returns {Promise<Pet[]>} The array of pets
+     * @param {string | number} clientId The client ID
+     */
+    async getPetsByClient(clientId) {
+        return await httpService.get(`${apiUrl}/pets_by_owner/${clientId}`);
+    }
+
+    /**
      * Gets a pet by its ID
      * @param {string | number} id The ID
      * @returns {Promise<Pet>} The pet
@@ -41,16 +50,8 @@ class PetsService {
      * Hard delete an existent pet
      * @param {string | number} id The ID
      */
-    async hardDeletePet(id) {
+    async deletePet(id) {
         return await httpService.delete(`${apiUrl}/pets/${id}`);
-    }
-
-    /**
-     * Soft delete an existent pet
-     * @param {string | number} id The ID
-     */
-    async softDeletePet(id) {
-        return await httpService.patch(`${apiUrl}/pets/${id}`);
     }
 }
 

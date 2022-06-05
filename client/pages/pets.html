@@ -14,6 +14,16 @@
             <main class="pets" slot="children">
                 <h2>Pets (API)</h2>
 
+                <div class="filters">
+                    <input type="search" name="search" id="pet-search" placeholder="Search pet..." />
+
+                    <select name="owner-filter" id="owner-filter">
+                        <option value="" selected disabled hidden>Filter by owner</option>
+                    </select>
+
+                    <button id="clear-filters-btn" class="btn danger">Clear filters</button>
+                </div>
+
                 <div class="table-container">
                     <table id="data-table">
                         <thead></thead>
@@ -34,6 +44,6 @@
             </main>
         </app-layout>
 
-        <script src="../js/pages/pets/api.js" type="module"></script>
+        <script src="../js/pages/pets.js" type="module"></script>
     </body>
 </html>

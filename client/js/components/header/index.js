@@ -1,4 +1,4 @@
-import { getHtmlTemplate, getStyleTag } from "../helpers.js";
+import { getHtmlTemplate, getStyleTag } from "../../shared/helpers.js";
 import { routes } from "../../shared/routes.js";
 
 class Header extends HTMLElement {

@@ -1,7 +1,34 @@
+@use "../variables";
+
 .pets {
     padding-bottom: 75px;
 
     > h2 {
         font-size: 35px;
+    }
+
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        margin-top: 50px;
+
+        @media #{variables.media-query(max, md)} {
+            flex-direction: column;
+
+            select {
+                flex: 1;
+            }
+        }
+
+        input {
+            flex: 1;
+        }
+    }
+
+    #add-edit-form {
+        select {
+            grid-column: 1 / -1;
+        }
     }
 }

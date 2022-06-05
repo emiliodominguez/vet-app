@@ -134,12 +134,15 @@ export function toggleModal(open, mode, client = null) {
 export function getDataFromForm(e) {
     const formData = new FormData(e.target);
     const clientData = entityFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
-    addEditForm.reset();
+    e.target.reset();
     toggleModal(false);
     return clientData;
 }
 
 // Common function calls
-addBtn.addEventListener("click", () => toggleModal(true, formModes.ADD));
 renderTableHead();
 renderFormFields();
+addBtn.addEventListener("click", () => {
+    addEditForm.reset();
+    toggleModal(true, formModes.ADD);
+});

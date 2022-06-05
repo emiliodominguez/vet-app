@@ -20,16 +20,3 @@ export function getStyleTag(url) {
     linkElem.setAttribute("href", url);
     return linkElem;
 }
-
-/**
- * Gets the scripts tag with its corresponding configuration
- * @param {string} url The scripts url
- * @param {boolean} module Whether the script should be a module or not
- * @returns {HTMLScriptElement} The scripts tag
- */
-export function getScriptsTag(url, module = false) {
-    const script = document.createElement("script");
-    script.setAttribute("src", url);
-    script.setAttribute("type", module ? "module" : undefined);
-    return script;
-}

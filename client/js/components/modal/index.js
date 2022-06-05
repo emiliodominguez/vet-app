@@ -1,4 +1,4 @@
-import { getHtmlTemplate, getStyleTag } from "../helpers.js";
+import { getHtmlTemplate, getStyleTag } from "../../shared/helpers.js";
 
 class Modal extends HTMLElement {
     static get observedAttributes() {

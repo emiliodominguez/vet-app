@@ -1,4 +1,4 @@
-import { getHtmlTemplate, getStyleTag } from "../helpers.js";
+import { getHtmlTemplate, getStyleTag } from "../../shared/helpers.js";
 
 class Footer extends HTMLElement {
     constructor() {

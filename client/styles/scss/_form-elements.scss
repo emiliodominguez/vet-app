@@ -1,12 +1,14 @@
 @use "./variables";
 
 input,
+select,
 .btn {
-    padding: 10px 15px;
+    padding: 10px;
     border-radius: 5px;
 }
 
-input {
+input,
+select {
     font-family: var(--primary-font);
     border: 1px solid #999;
 }

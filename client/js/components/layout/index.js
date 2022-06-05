@@ -1,8 +1,8 @@
-import { getHtmlTemplate, getStyleTag } from "../helpers.js";
+import { getHtmlTemplate, getStyleTag } from "../../shared/helpers.js";
 import "../header/index.js";
 import "../footer/index.js";
 
-class Main extends HTMLElement {
+class Layout extends HTMLElement {
     constructor() {
         super();
     }
@@ -30,4 +30,4 @@ class Main extends HTMLElement {
     }
 }
 
-customElements.define("app-layout", Main);
+customElements.define("app-layout", Layout);

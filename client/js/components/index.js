@@ -1,2 +1,2 @@
-import "./main/index.js";
+import "./layout/index.js";
 import "./modal/index.js";
