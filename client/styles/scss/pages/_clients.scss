@@ -3,5 +3,17 @@
 
     > h2 {
         font-size: 35px;
+        margin-bottom: 15px;
+
+        + a {
+            color: rgb(var(--highlight-color));
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity ease 250ms;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
     }
 }
