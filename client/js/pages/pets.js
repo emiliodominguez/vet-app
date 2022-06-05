@@ -140,8 +140,9 @@ async function renderFormFields() {
 
             // Placeholder
             const placeholder = document.createElement("option");
-            placeholder.selected = true;
             placeholder.disabled = true;
+            placeholder.hidden = true;
+            placeholder.defaultSelected = true;
             placeholder.textContent = field.placeholder;
             select.append(placeholder);
 
