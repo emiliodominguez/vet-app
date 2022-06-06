@@ -18,7 +18,7 @@ const entityFields = Object.freeze([
     { key: "breed", label: "Breed", inputType: "string", placeholder: "Pet's breed", required: true },
     { key: "affection", label: "Affection", inputType: "string", placeholder: "Pet's affection", required: true },
     { key: "admission_date", label: "Admission date", inputType: "date", required: true },
-    { key: "owner_id", label: "Owner", placeholder: "Select the owner of the pet" },
+    { key: "owner_id", label: "Owner", placeholder: "Select the owner of the pet", required: true },
 ]);
 let searchDebounceId;
 
@@ -143,6 +143,7 @@ async function renderFormFields() {
             placeholder.disabled = true;
             placeholder.hidden = true;
             placeholder.defaultSelected = true;
+            select.required = field.required;
             placeholder.textContent = field.placeholder;
             select.append(placeholder);
 

@@ -1,6 +1,25 @@
 @use "../variables";
 @use "../form-elements";
 
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 50px;
+
+    @media #{variables.media-query(max, md)} {
+        flex-direction: column;
+
+        select {
+            flex: 1;
+        }
+    }
+
+    input {
+        flex: 1;
+    }
+}
+
 .table-container {
     max-width: 100%;
     overflow-x: auto;

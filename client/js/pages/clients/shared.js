@@ -65,7 +65,7 @@ function renderTableHead() {
 function getPetsCell(pets) {
     const td = document.createElement("td");
 
-    if (!pets.length) {
+    if (!pets?.length) {
         td.textContent = "-";
     } else {
         const ul = document.createElement("ul");

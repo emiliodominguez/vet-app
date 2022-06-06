@@ -48,7 +48,7 @@ function handleFormSubmit(e) {
         case formModes.ADD:
             const clients = clientsLsService.getClients();
             const newClient = shared.getDataFromForm(e);
-            clientsLsService.saveClient({ id: clients.length, is_active: 1, ...newClient });
+            clientsLsService.saveClient({ id: clients.length, is_active: 1, pets: [], ...newClient });
             break;
     }
 
