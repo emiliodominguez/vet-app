@@ -16,4 +16,17 @@
             }
         }
     }
+
+    #delete-confirmation-modal {
+        .actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+
+            button {
+                min-width: 100px;
+            }
+        }
+    }
 }

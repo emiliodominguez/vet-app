@@ -8,6 +8,9 @@ const table = document.querySelector("#data-table");
 const tableHead = table.querySelector("thead");
 const tableBody = table.querySelector("tbody");
 const addBtn = document.querySelector("#add-btn");
+const deleteConfirmationModal = document.querySelector("#delete-confirmation-modal");
+const modalConfirmBtn = deleteConfirmationModal.querySelector("#confirm");
+const modalCancelBtn = deleteConfirmationModal.querySelector("#cancel");
 const entityFields = Object.freeze([
     { key: "name", label: "Name", inputType: "string", placeholder: "Client's name", required: true },
     { key: "email", label: "Email", inputType: "email", placeholder: "Client's email", required: true },
@@ -17,6 +20,7 @@ const entityFields = Object.freeze([
     { key: "address", label: "Address", inputType: "string", placeholder: "Client's address", required: true },
     { key: "pets", label: "Pets", hidden: true },
 ]);
+const confirmListenerRegistry = {};
 
 /**
  * Renders the form with the corresponding fields
@@ -123,7 +127,15 @@ export function renderTableBody(clients, onEdit, onDelete) {
             softDeleteBtn.addEventListener("click", () => onDelete?.(client.id, true));
             // Hard Delete
             hardDeleteBtn.textContent = "Hard delete";
-            hardDeleteBtn.addEventListener("click", () => onDelete?.(client.id, false));
+            hardDeleteBtn.addEventListener("click", () => {
+                deleteConfirmationModal.setAttribute("open", true);
+                modalConfirmBtn.removeEventListener("click", confirmListenerRegistry.click);
+                confirmListenerRegistry.click = () => onDelete?.(client.id, true);
+                modalConfirmBtn.addEventListener("click", () => {
+                    confirmListenerRegistry.click();
+                    deleteConfirmationModal.setAttribute("open", false);
+                });
+            });
 
             actionsCell.append(editBtn, softDeleteBtn, hardDeleteBtn);
             tr.append(actionsCell);
@@ -142,7 +154,7 @@ export function renderTableBody(clients, onEdit, onDelete) {
  * @param {"ADD" | "EDIT"} mode The form mode
  * @param {Client} client The existent client data (if edit mode)
  */
-export function toggleModal(open, mode, client = null) {
+export function toggleFormModal(open, mode, client = null) {
     addEditModal.setAttribute("open", open);
     addEditForm.dataset.mode = mode;
 
@@ -167,14 +179,17 @@ export function getDataFromForm(e) {
     const formData = new FormData(e.target);
     const clientData = entityFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
     e.target.reset();
-    toggleModal(false);
+    toggleFormModal(false);
     return clientData;
 }
 
 // Common function calls
 renderTableHead();
 renderFormFields();
+
 addBtn.addEventListener("click", () => {
     addEditForm.reset();
-    toggleModal(true, formModes.ADD);
+    toggleFormModal(true, formModes.ADD);
 });
+
+modalCancelBtn.addEventListener("click", () => deleteConfirmationModal.setAttribute("open", false));
