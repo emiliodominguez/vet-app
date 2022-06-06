@@ -15,6 +15,7 @@ const entityFields = Object.freeze([
     { key: "birth_date", label: "Birth date", inputType: "date", required: true },
     { key: "phone", label: "Phone", inputType: "tel", placeholder: "Client's phone", required: true },
     { key: "address", label: "Address", inputType: "string", placeholder: "Client's address", required: true },
+    { key: "pets", label: "Pets", hidden: true },
 ]);
 
 /**
@@ -22,6 +23,8 @@ const entityFields = Object.freeze([
  */
 function renderFormFields() {
     for (const field of entityFields) {
+        if (field.hidden) continue;
+
         const div = document.createElement("div");
         const label = document.createElement("label");
         const input = document.createElement("input");
@@ -56,6 +59,30 @@ function renderTableHead() {
 }
 
 /**
+ * Gets the pets cell
+ * @returns {HTMLElement} The table cell
+ */
+function getPetsCell(pets) {
+    const td = document.createElement("td");
+
+    if (!pets.length) {
+        td.textContent = "-";
+    } else {
+        const ul = document.createElement("ul");
+
+        for (const pet of pets) {
+            const li = document.createElement("li");
+            li.textContent = `${pet.name} (${pet.type})`;
+            ul.append(li);
+        }
+
+        td.append(ul);
+    }
+
+    return td;
+}
+
+/**
  * Renders the table body
  * @param {Client[]} clients
  * @param {(id: number | string) => void} onEdit
@@ -72,8 +99,13 @@ export function renderTableBody(clients, onEdit, onDelete) {
 
             for (const key of tableFieldsKey) {
                 const td = document.createElement("td");
-                td.textContent = client[key];
-                tr.append(td);
+
+                if (key === "pets") {
+                    tr.append(getPetsCell(client.pets));
+                } else {
+                    td.textContent = client[key];
+                    tr.append(td);
+                }
             }
 
             // Actions
