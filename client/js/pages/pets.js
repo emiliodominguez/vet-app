@@ -136,6 +136,7 @@ async function renderFormFields() {
             // Clients select
             const select = document.createElement("select");
             select.name = field.key;
+            select.required = field.required;
             addEditForm.append(select);
 
             // Placeholder
@@ -143,7 +144,6 @@ async function renderFormFields() {
             placeholder.disabled = true;
             placeholder.hidden = true;
             placeholder.defaultSelected = true;
-            select.required = field.required;
             placeholder.textContent = field.placeholder;
             select.append(placeholder);
 
