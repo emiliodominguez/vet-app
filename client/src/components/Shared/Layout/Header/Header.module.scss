@@ -1,0 +1,146 @@
+@use "../../../../styles/variables";
+
+.header {
+	height: var(--header-height);
+	padding: 15px var(--common-padding);
+	justify-content: space-between;
+
+	&,
+	ul {
+		display: flex;
+		align-items: center;
+	}
+
+	a {
+		text-decoration: none;
+		color: var(--primary-color);
+		transition: color ease 250ms;
+
+		&:hover {
+			color: rgb(var(--highlight-color));
+		}
+	}
+}
+
+.navBadge {
+	text-transform: uppercase;
+	color: rgba(var(--highlight-color), 0.75);
+
+	h1 {
+		font-size: 18px;
+	}
+}
+
+.navMenu {
+	$toggler-size: 20px;
+	$toggler-offset: 20px;
+
+	position: relative;
+	background-color: transparent;
+	border: none;
+
+	svg,
+	input {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		width: $toggler-size;
+		height: $toggler-size;
+		transform: translateY(-50%);
+		z-index: 101;
+		cursor: pointer;
+
+		@media #{variables.media-query(min, md)} {
+			display: none;
+		}
+	}
+
+	svg {
+		pointer-events: none;
+
+		path {
+			fill: rgb(var(--primary-color));
+			transition: fill ease 250ms;
+		}
+	}
+
+	input {
+		opacity: 0;
+
+		&:checked {
+			~ nav {
+				transform: translateX(0);
+			}
+		}
+
+		&:hover {
+			+ svg path {
+				fill: rgb(var(--highlight-color));
+			}
+		}
+	}
+
+	nav {
+		@media #{variables.media-query(max, md)} {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			width: 100vw;
+			background-color: rgba(var(--secondary-color), 0.5);
+			backdrop-filter: blur(15px);
+			padding: var(--common-padding);
+			z-index: 100;
+			transform: translateX(100%);
+			transition: transform ease 250ms;
+
+			ul {
+				height: 100%;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-end;
+				gap: 50px;
+
+				a {
+					font-size: 25px;
+
+					&:global(.active) {
+						&::after {
+							top: 50%;
+							right: calc(100% + 15px);
+							left: auto;
+							transform: translateY(-50%);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	ul {
+		list-style: none;
+		gap: 25px;
+
+		a {
+			position: relative;
+
+			@media #{variables.media-query(max, md)} {
+				font-size: 15px;
+			}
+
+			&:global(.active) {
+				&::after {
+					content: "";
+					position: absolute;
+					top: calc(100% + 5px);
+					left: 50%;
+					width: 5px;
+					height: 5px;
+					background-color: rgb(var(--highlight-color));
+					border-radius: 50%;
+					transform: translateX(-50%);
+				}
+			}
+		}
+	}
+}

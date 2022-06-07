@@ -1,0 +1,26 @@
+.clients {
+	h1 {
+		margin-bottom: 50px;
+	}
+}
+
+.table {
+	ul {
+		line-height: 1.75;
+	}
+
+	.actions {
+		button {
+			+ button {
+				margin-left: 15px;
+			}
+		}
+	}
+}
+
+.addClientBtn {
+	position: fixed;
+	right: var(--common-padding);
+	bottom: calc(var(--footer-height) + 15px);
+	min-width: 150px;
+}

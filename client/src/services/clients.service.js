@@ -1,6 +1,5 @@
 import { apiUrl } from "../shared/constants";
 import httpService from "./http.service";
-import "../shared/types";
 
 class ClientsService {
 	/**

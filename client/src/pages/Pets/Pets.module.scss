@@ -1,0 +1,20 @@
+.pets {
+	h1 {
+		margin-bottom: 50px;
+	}
+}
+
+.rowActions {
+	button {
+		+ button {
+			margin-left: 15px;
+		}
+	}
+}
+
+.addPetBtn {
+	position: fixed;
+	right: var(--common-padding);
+	bottom: calc(var(--footer-height) + 15px);
+	min-width: 150px;
+}

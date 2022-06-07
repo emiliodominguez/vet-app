@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Esteban&display=swap");
+
+:root {
+    // Colors
+    --primary-color: 255, 255, 255;
+    --secondary-color: 17, 17, 17;
+    --highlight-color: 127, 200, 223;
+
+    // Fonts
+    --primary-font: "Montserrat", sans-serif;
+    --secondary-font: "Esteban", serif;
+
+    // Sizes
+    --header-height: 75px;
+    --footer-height: 75px;
+    --main-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+    --common-padding: 25px;
+}

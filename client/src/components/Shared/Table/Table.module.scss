@@ -1,0 +1,45 @@
+@use "../../../styles/variables";
+
+.container {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.table {
+	width: 100%;
+	text-align: left;
+	white-space: nowrap;
+	border-collapse: collapse;
+
+	thead {
+		tr {
+			border-bottom: 1px solid rgba(var(--primary-color), 0.2);
+		}
+	}
+
+	tbody {
+		tr {
+			transition: background-color ease 250ms;
+			border-bottom: 1px solid rgba(var(--primary-color), 0.1);
+
+			&:hover {
+				background-color: rgb(var(--secondary-color));
+			}
+		}
+	}
+
+	th {
+		font-weight: variables.font-weight(medium);
+		padding: 10px 15px;
+	}
+
+	td {
+		font-size: 14px;
+		padding: 20px 15px;
+	}
+
+	td,
+	th {
+		min-width: 100px;
+	}
+}

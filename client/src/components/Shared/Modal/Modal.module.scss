@@ -1,0 +1,53 @@
+@use "../../../styles/variables";
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	backdrop-filter: blur(5px);
+	padding: 25px;
+	z-index: 100;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	@media #{variables.media-query(max, md)} {
+		align-items: flex-start;
+	}
+
+	.content {
+		position: relative;
+		width: 100%;
+		max-width: 500px;
+		padding: 25px;
+		border-radius: 5px;
+		background-color: rgb(var(--primary-color));
+		color: rgb(var(--secondary-color));
+
+		.closeBtn {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+
+			&:hover {
+				svg path {
+					fill: rgb(var(--highlight-color));
+				}
+			}
+
+			svg {
+				height: 12px;
+			}
+		}
+
+		.title {
+			margin-bottom: 25px;
+		}
+	}
+}

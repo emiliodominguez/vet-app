@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import petsService from "../services/pets.service";
 
 const PetsContext = createContext();
@@ -23,3 +24,7 @@ export function usePets() {
 
 	return context;
 }
+
+PetsContextProvider.propTypes = {
+	children: PropTypes.node
+};

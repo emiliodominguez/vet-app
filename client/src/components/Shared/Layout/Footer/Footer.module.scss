@@ -1,0 +1,11 @@
+.footer {
+	height: var(--footer-height);
+	padding: var(--common-padding);
+	text-align: center;
+
+	span {
+		font-size: 12px;
+		opacity: 0.5;
+		line-height: 1;
+	}
+}

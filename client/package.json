@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "prop-types": "^15.8.1",
     "sass": "^1.52.2"
   }
 }

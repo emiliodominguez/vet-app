@@ -1,4 +1,15 @@
 /**
+ * @typedef Pet
+ * @property {string | number} id The pet's ID
+ * @property {string} name The pet's name
+ * @property {Date} birth_date The pet's birth date
+ * @property {string} type The pet's type
+ * @property {string} breed The pet's breed
+ * @property {string} affections The pet's affections
+ * @property {Date} admission_date The pet's admission date
+ */
+
+/**
  * @typedef Client
  * @property {string | number} id The client's ID
  * @property {string} name The client's name
@@ -8,15 +19,5 @@
  * @property {string} phone The client's phone
  * @property {string} address The client's address
  * @property {boolean} is_active A boolean to determine whether the client is active or not
- */
-
-/**
- * @typedef Pet
- * @property {string | number} id The pet's ID
- * @property {string} name The pet's name
- * @property {Date} birth_date The pet's birth date
- * @property {string} type The pet's type
- * @property {string} breed The pet's breed
- * @property {string} affections The pet's affections
- * @property {Date} admissionDate The pet's admission date
+ * @property {Pet[]} pets The pets array
  */
