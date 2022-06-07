@@ -1,57 +1,11 @@
 @use "./variables";
 
 input,
-select,
-.btn {
+select {
 	padding: 10px;
 	border-radius: 5px;
-}
-
-input,
-select {
 	font-family: var(--primary-font);
 	border: 1px solid rgba(var(--secondary-color, 0.05));
-}
-
-.btn {
-	display: inline-block;
-	background-color: rgb(var(--highlight-color));
-	color: rgb(var(--secondary-color));
-	text-decoration: none;
-	border: none;
-	font-size: 14px;
-	font-weight: variables.font-weight(bold);
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
-	transition: background-color ease 250ms, transform ease 250ms;
-	cursor: pointer;
-
-	&:focus,
-	&:hover {
-		transform: scale(1.05);
-	}
-
-	&.sm {
-		padding: 5px;
-		font-size: 12px;
-	}
-
-	&.danger,
-	&.positive {
-		color: rgb(var(--primary-color));
-	}
-
-	&.positive {
-		background-color: rgb(var(--positive-color));
-	}
-
-	&.warning {
-		background-color: rgb(var(--warning-color));
-	}
-
-	&.danger {
-		background-color: rgb(var(--danger-color));
-	}
 }
 
 .form {
@@ -74,12 +28,12 @@ select {
 
 	input {
 		width: 100%;
+	}
 
-		&[type="submit"] {
-			grid-column: 1 / -1;
-			max-width: 150px;
-			margin: 0 auto;
-		}
+	[type="submit"] {
+		grid-column: 1 / -1;
+		min-width: 150px;
+		margin: 15px auto 0;
 	}
 
 	.error {

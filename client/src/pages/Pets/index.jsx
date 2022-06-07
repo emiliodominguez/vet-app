@@ -1,7 +1,7 @@
 import { usePets } from "../../contexts/PetsContext";
-import { className } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
+import Button from "../../components/Shared/Button";
 import styles from "./Pets.module.scss";
 
 export default function PetsPage() {
@@ -29,7 +29,8 @@ export default function PetsPage() {
 				])}
 			/>
 
-			<button {...className("btn", styles.addPetBtn)}>+ Add client</button>
+			{/* Add client button */}
+			<Button className={styles.addPetBtn}>+ Add pet</Button>
 		</Layout>
 	);
 }

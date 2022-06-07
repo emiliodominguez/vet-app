@@ -3,9 +3,9 @@ import { useClients } from "../../contexts/ClientsContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { clientFields } from "../../shared/constants";
-import { className } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
+import Button from "../../components/Shared/Button";
 import styles from "./Clients.module.scss";
 
 export default function ClientsPage() {
@@ -89,25 +89,25 @@ export default function ClientsPage() {
 						))}
 					</ul>,
 					<div className={styles.actions}>
-						<button className="btn sm" onClick={() => handleEditClick(client)}>
+						<Button sm onClick={() => handleEditClick(client)}>
 							Edit
-						</button>
+						</Button>
 
-						<button className="btn sm danger" onClick={() => handleDeleteClick(client, true)}>
+						<Button sm kind="danger" onClick={() => handleDeleteClick(client, true)}>
 							Delete (soft)
-						</button>
+						</Button>
 
-						<button className="btn sm danger" onClick={() => handleDeleteClick(client, false)}>
+						<Button sm kind="danger" onClick={() => handleDeleteClick(client, false)}>
 							Delete (hard)
-						</button>
+						</Button>
 					</div>
 				])}
 			/>
 
 			{/* Add client button */}
-			<button {...className("btn", styles.addClientBtn)} onClick={handleAddClick}>
+			<Button className={styles.addClientBtn} onClick={handleAddClick}>
 				+ Add client
-			</button>
+			</Button>
 
 			{/* Set client form modal */}
 			{modalProps && (
@@ -135,7 +135,9 @@ export default function ClientsPage() {
 
 						{formError && <p className="error">{formError}</p>}
 
-						<input type="submit" value="Submit" className="btn positive" />
+						<Button type="submit" kind="positive">
+							Submit
+						</Button>
 					</form>
 				</Modal>
 			)}
