@@ -4,69 +4,20 @@ import "../../shared/types.js";
 export const addEditForm = document.querySelector("#add-edit-form");
 export const addEditModal = document.querySelector("#add-edit-modal");
 
+const clientDataKeys = ["name", "email", "age", "birth_date", "phone", "address", "pets"];
 const table = document.querySelector("#data-table");
-const tableHead = table.querySelector("thead");
 const tableBody = table.querySelector("tbody");
 const addBtn = document.querySelector("#add-btn");
 const deleteConfirmationModal = document.querySelector("#delete-confirmation-modal");
 const modalConfirmBtn = deleteConfirmationModal.querySelector("#confirm");
 const modalCancelBtn = deleteConfirmationModal.querySelector("#cancel");
-const entityFields = Object.freeze([
-    { key: "name", label: "Name", inputType: "string", placeholder: "Client's name", required: true },
-    { key: "email", label: "Email", inputType: "email", placeholder: "Client's email", required: true },
-    { key: "age", label: "Age", inputType: "number", placeholder: "Client's age", required: true },
-    { key: "birth_date", label: "Birth date", inputType: "date", required: true },
-    { key: "phone", label: "Phone", inputType: "tel", placeholder: "Client's phone", required: true },
-    { key: "address", label: "Address", inputType: "string", placeholder: "Client's address", required: true },
-    { key: "pets", label: "Pets", hidden: true },
-]);
 const confirmListenerRegistry = {};
-
-/**
- * Renders the form with the corresponding fields
- */
-function renderFormFields() {
-    for (const field of entityFields) {
-        if (field.hidden) continue;
-
-        const div = document.createElement("div");
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-
-        // Label
-        label.for = field.key;
-        label.textContent = field.label;
-        // Input
-        input.name = field.key;
-        input.placeholder = field.placeholder;
-        input.type = field.inputType;
-        input.required = field.required;
-
-        div.append(label, input);
-        addEditForm.append(div);
-    }
-}
-
-/**
- * Renders the table head with the corresponding fields
- */
-function renderTableHead() {
-    const tr = document.createElement("tr");
-
-    for (const field of entityFields) {
-        const th = document.createElement("th");
-        th.textContent = field.label;
-        tr.append(th);
-    }
-
-    tableHead.append(tr);
-}
 
 /**
  * Gets the pets cell
  * @returns {HTMLElement} The table cell
  */
-function getPetsCell(pets) {
+function getClientPetsCell(pets) {
     const td = document.createElement("td");
 
     if (!pets?.length) {
@@ -96,16 +47,15 @@ export function renderTableBody(clients, onEdit, onDelete) {
     tableBody.innerHTML = "";
 
     if (clients.length) {
-        const tableFieldsKey = entityFields.map((x) => x.key);
-
         for (const client of clients) {
             const tr = document.createElement("tr");
 
-            for (const key of tableFieldsKey) {
+            for (const key of clientDataKeys) {
                 const td = document.createElement("td");
 
                 if (key === "pets") {
-                    tr.append(getPetsCell(client.pets));
+                    const petsCell = getClientPetsCell(client.pets);
+                    tr.append(petsCell);
                 } else {
                     td.textContent = client[key];
                     tr.append(td);
@@ -130,7 +80,7 @@ export function renderTableBody(clients, onEdit, onDelete) {
             hardDeleteBtn.addEventListener("click", () => {
                 deleteConfirmationModal.setAttribute("open", true);
                 modalConfirmBtn.removeEventListener("click", confirmListenerRegistry.click);
-                confirmListenerRegistry.click = () => onDelete?.(client.id, true);
+                confirmListenerRegistry.click = () => onDelete?.(client.id, false);
                 modalConfirmBtn.addEventListener("click", () => {
                     confirmListenerRegistry.click();
                     deleteConfirmationModal.setAttribute("open", false);
@@ -163,9 +113,9 @@ export function toggleFormModal(open, mode, client = null) {
 
         idInput.value = client.id;
 
-        entityFields.forEach((prop) => {
-            const updatedProp = addEditForm.querySelector(`[name='${prop.key}']`);
-            if (updatedProp) updatedProp.value = client[prop.key];
+        clientDataKeys.forEach((key) => {
+            const updatedProp = addEditForm.querySelector(`[name='${key}']`);
+            if (updatedProp) updatedProp.value = client[key];
         });
     }
 }
@@ -175,21 +125,21 @@ export function toggleFormModal(open, mode, client = null) {
  * @param {Event} e The form event
  * @returns {Client} The updated client data
  */
-export function getDataFromForm(e) {
+export function getFormData(e) {
     const formData = new FormData(e.target);
-    const clientData = entityFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
+    const clientData = clientDataKeys.reduce((acc, key) => ({ ...acc, [key]: formData.get(key) }), {});
     e.target.reset();
     toggleFormModal(false);
     return clientData;
 }
 
-// Common function calls
-renderTableHead();
-renderFormFields();
-
+// Sets the event listener to open the add client modal
 addBtn.addEventListener("click", () => {
     addEditForm.reset();
     toggleFormModal(true, formModes.ADD);
 });
 
-modalCancelBtn.addEventListener("click", () => deleteConfirmationModal.setAttribute("open", false));
+// Sets the event listener to open the delete confirmation modal
+modalCancelBtn.addEventListener("click", () => {
+    deleteConfirmationModal.setAttribute("open", false);
+});

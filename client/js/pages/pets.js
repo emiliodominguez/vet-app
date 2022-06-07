@@ -3,23 +3,14 @@ import petsService from "../services/pets/api.service.js";
 import clientsService from "../services/clients/api.service.js";
 import "../shared/types.js";
 
+const petDataKeys = ["name", "birth_date", "type", "breed", "affection", "admission_date", "owner_id"];
 const addEditForm = document.querySelector("#add-edit-form");
 const addEditModal = document.querySelector("#add-edit-modal");
 const searchInput = document.querySelector("#pet-search");
 const ownerFilter = document.querySelector("#owner-filter");
 const clearFiltersBtn = document.querySelector("#clear-filters-btn");
-const tableHead = document.querySelector("#data-table thead");
 const tableBody = document.querySelector("#data-table tbody");
 const addBtn = document.querySelector("#add-btn");
-const entityFields = Object.freeze([
-    { key: "name", label: "Name", inputType: "string", placeholder: "Pet's name", required: true },
-    { key: "birth_date", label: "Birth date", inputType: "date", required: true },
-    { key: "type", label: "Type", inputType: "string", placeholder: "Pet's type", required: true },
-    { key: "breed", label: "Breed", inputType: "string", placeholder: "Pet's breed", required: true },
-    { key: "affection", label: "Affection", inputType: "string", placeholder: "Pet's affection", required: true },
-    { key: "admission_date", label: "Admission date", inputType: "date", required: true },
-    { key: "owner_id", label: "Owner", placeholder: "Select the owner of the pet", required: true },
-]);
 let searchDebounceId;
 
 /**
@@ -43,21 +34,6 @@ async function deletePet(id, soft) {
 }
 
 /**
- * Renders the table head with the corresponding fields
- */
-function renderTableHead() {
-    const tr = document.createElement("tr");
-
-    for (const field of entityFields) {
-        const th = document.createElement("th");
-        th.textContent = field.label;
-        tr.append(th);
-    }
-
-    tableHead.append(tr);
-}
-
-/**
  * Renders the table body
  * @param {Pet[]} filteredPets A filtered list of pets (for search)
  */
@@ -67,12 +43,10 @@ async function renderTableBody(filteredPets = null) {
     tableBody.innerHTML = "";
 
     if (pets.length) {
-        const tableFieldsKey = entityFields.map((x) => x.key);
-
         for (const pet of pets) {
             const tr = document.createElement("tr");
 
-            for (const key of tableFieldsKey) {
+            for (const key of petDataKeys) {
                 const td = document.createElement("td");
 
                 if (key === "owner_id") {
@@ -110,72 +84,30 @@ async function renderTableBody(filteredPets = null) {
 }
 
 /**
- * Renders the form with the corresponding fields
- */
-async function renderFormFields() {
-    const clients = await clientsService.getClients();
-
-    for (const field of entityFields) {
-        if (field.inputType) {
-            const div = document.createElement("div");
-            const label = document.createElement("label");
-            const input = document.createElement("input");
-
-            // Label
-            label.for = field.key;
-            label.textContent = field.label;
-            // Input
-            input.name = field.key;
-            input.placeholder = field.placeholder;
-            input.type = field.inputType;
-            input.required = field.required;
-
-            div.append(label, input);
-            addEditForm.append(div);
-        } else {
-            // Clients select
-            const select = document.createElement("select");
-            select.name = field.key;
-            select.required = field.required;
-            addEditForm.append(select);
-
-            // Placeholder
-            const placeholder = document.createElement("option");
-            placeholder.disabled = true;
-            placeholder.hidden = true;
-            placeholder.defaultSelected = true;
-            placeholder.textContent = field.placeholder;
-            select.append(placeholder);
-
-            // Render owners
-            if (clients.length) {
-                for (const client of clients) {
-                    const option = document.createElement("option");
-                    option.value = client.id;
-                    option.text = client.name;
-                    select.append(option);
-                }
-            } else {
-                const option = document.createElement("option");
-                option.disabled = true;
-                option.textContent = "No records...";
-                select.append(option);
-            }
-        }
-    }
-}
-
-/**
  * Renders the owners filter options
  */
-async function renderOwnersFilterOptions() {
+async function renderOwnersSelectOptions() {
+    const formOwnersSelect = addEditForm.querySelector("[name='owner_id']");
     const clients = await clientsService.getClients();
 
-    for (const client of clients) {
+    if (clients.length) {
+        for (const client of clients) {
+            const option = document.createElement("option");
+            option.value = client.id;
+            option.text = client.name;
+            formOwnersSelect.append(option);
+
+            const clonedOption = option.cloneNode(true);
+            ownerFilter.append(clonedOption);
+        }
+    } else {
         const option = document.createElement("option");
-        option.value = client.id;
-        option.text = client.name;
-        ownerFilter.append(option);
+        option.disabled = true;
+        option.textContent = "No records...";
+        formOwnersSelect.append(option);
+
+        const clonedOption = option.cloneNode(true);
+        ownerFilter.append(clonedOption);
     }
 }
 
@@ -194,9 +126,9 @@ function toggleModal(open, mode, pet = null) {
 
         idInput.value = pet.id;
 
-        entityFields.forEach((prop) => {
-            const updatedProp = addEditForm.querySelector(`[name='${prop.key}']`);
-            if (updatedProp) updatedProp.value = pet[prop.key];
+        petDataKeys.forEach((key) => {
+            const updatedProp = addEditForm.querySelector(`[name='${key}']`);
+            if (updatedProp) updatedProp.value = pet[key];
         });
     }
 }
@@ -224,7 +156,7 @@ function handleSearch(e) {
  * @param {Event} e The form event
  */
 async function handleOwnerFilterChange(e) {
-    let pets = (await petsService.getPets()).filter((x) => +x.id === +e.target.value);
+    let pets = (await petsService.getPets()).filter((x) => +x.owner_id === +e.target.value);
 
     if (!!searchInput.value) {
         pets = pets.filter((x) => x.name.toLowerCase().includes(searchInput.value.toLowerCase()));
@@ -249,7 +181,7 @@ function clearFilters() {
  */
 function getDataFromForm(e) {
     const formData = new FormData(e.target);
-    const petData = entityFields.reduce((acc, field) => ({ ...acc, [field.key]: formData.get(field.key) }), {});
+    const petData = petDataKeys.reduce((acc, key) => ({ ...acc, [key]: formData.get(key) }), {});
     e.target.reset();
     toggleModal(false);
     return petData;
@@ -278,16 +210,22 @@ async function handleFormSubmit(e) {
 }
 
 // Table rendering
-renderTableHead();
 renderTableBody();
-renderFormFields();
-renderOwnersFilterOptions();
+renderOwnersSelectOptions();
 
-// Event listeners
+// Sets the event listener for the search input
 searchInput.addEventListener("keyup", handleSearch);
+
+// Sets the event listener for the owner's filter
 ownerFilter.addEventListener("change", handleOwnerFilterChange);
+
+// Sets the event listener for the clear filters button
 clearFiltersBtn.addEventListener("click", clearFilters);
+
+// Sets the event listener for the add/edit form submission
 addEditForm.addEventListener("submit", handleFormSubmit);
+
+// Sets the event listener for the add pet button
 addBtn.addEventListener("click", () => {
     addEditForm.reset();
     toggleModal(true, formModes.ADD);

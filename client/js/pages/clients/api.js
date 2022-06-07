@@ -16,7 +16,7 @@ async function renderTable() {
  */
 async function editClient(id) {
     const client = await clientsService.getClientById(id);
-    shared.toggleModal(true, formModes.EDIT, client);
+    shared.toggleFormModal(true, formModes.EDIT, client);
 }
 
 /**
@@ -40,11 +40,11 @@ async function handleFormSubmit(e) {
     switch (e.target.dataset.mode) {
         case formModes.EDIT:
             const id = shared.addEditModal.querySelector("[name='id']").value;
-            const updatedClient = shared.getDataFromForm(e);
+            const updatedClient = shared.getFormData(e);
             await clientsService.editClient(id, updatedClient);
             break;
         case formModes.ADD:
-            const newClient = shared.getDataFromForm(e);
+            const newClient = shared.getFormData(e);
             await clientsService.saveClient(newClient);
             break;
     }
@@ -52,5 +52,6 @@ async function handleFormSubmit(e) {
     renderTable();
 }
 
+// Initialization
 shared.addEditForm.addEventListener("submit", handleFormSubmit);
 renderTable();

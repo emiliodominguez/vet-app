@@ -14,30 +14,90 @@
             <main class="pets" slot="children">
                 <h2>Pets</h2>
 
+                <!-- Filters section -->
                 <div class="filters">
                     <input type="search" name="search" id="pet-search" placeholder="Search pet..." />
 
                     <select name="owner-filter" id="owner-filter">
-                        <option value="" selected disabled hidden>Filter by owner</option>
+                        <option value selected disabled hidden>Filter by owner</option>
                     </select>
 
                     <button id="clear-filters-btn" class="btn danger">Clear filters</button>
                 </div>
 
+                <!-- Pet's table -->
                 <div class="table-container">
                     <table id="data-table">
-                        <thead></thead>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Birth date</th>
+                                <th>Type</th>
+                                <th>Breed</th>
+                                <th>Affection</th>
+                                <th>Admission date</th>
+                                <th>Owner</th>
+                                <th><!-- Actions --></th>
+                            </tr>
+                        </thead>
+
                         <tbody></tbody>
                     </table>
                 </div>
 
+                <!-- Add button -->
                 <button class="btn" id="add-btn">+ Add</button>
 
+                <!-- Add/Edit form modal -->
                 <app-modal id="add-edit-modal">
                     <h3 slot="modal-title" class="modal-title">Add/Edit pet</h3>
 
                     <form method="POST" id="add-edit-form" slot="modal-content">
+                        <!-- Pet's ID -->
                         <input type="hidden" name="id" />
+
+                        <!-- Pet's name -->
+                        <div>
+                            <label>Name</label>
+                            <input name="name" placeholder="Pet's name" type="string" required />
+                        </div>
+
+                        <!-- Pet's birth date -->
+                        <div>
+                            <label>Birth date</label>
+                            <input name="birth_date" type="date" required />
+                        </div>
+
+                        <!-- Pet's type -->
+                        <div>
+                            <label>Type</label>
+                            <input name="type" placeholder="Pet's type" type="string" required />
+                        </div>
+
+                        <!-- Pet's breed -->
+                        <div>
+                            <label>Breed</label>
+                            <input name="breed" placeholder="Pet's breed" type="string" required />
+                        </div>
+
+                        <!-- Pet's affection -->
+                        <div>
+                            <label>Affection</label>
+                            <input name="affection" placeholder="Pet's affection" type="string" required />
+                        </div>
+
+                        <!-- Pet's admission date -->
+                        <div>
+                            <label>Admission date</label>
+                            <input name="admission_date" type="date" required />
+                        </div>
+
+                        <!-- Owner selector -->
+                        <select name="owner_id" required>
+                            <option disabled hidden selected>Select the pet's owner</option>
+                        </select>
+
+                        <!-- Submit button -->
                         <input type="submit" value="Submit" class="btn positive" />
                     </form>
                 </app-modal>

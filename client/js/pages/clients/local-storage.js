@@ -16,7 +16,7 @@ function renderTable() {
  */
 function editClient(id) {
     const { client } = clientsLsService.getClientById(id);
-    shared.toggleModal(true, formModes.EDIT, client);
+    shared.toggleFormModal(true, formModes.EDIT, client);
 }
 
 /**
@@ -42,12 +42,12 @@ function handleFormSubmit(e) {
         case formModes.EDIT:
             const id = shared.addEditModal.querySelector("[name='id']").value;
             const { client } = clientsLsService.getClientById(id);
-            const updatedClient = shared.getDataFromForm(e);
+            const updatedClient = shared.getFormData(e);
             clientsLsService.editClient(id, { ...client, ...updatedClient });
             break;
         case formModes.ADD:
             const clients = clientsLsService.getClients();
-            const newClient = shared.getDataFromForm(e);
+            const newClient = shared.getFormData(e);
             clientsLsService.saveClient({ id: clients.length, is_active: 1, pets: [], ...newClient });
             break;
     }
@@ -55,5 +55,6 @@ function handleFormSubmit(e) {
     renderTable();
 }
 
+// Initialization
 shared.addEditForm.addEventListener("submit", handleFormSubmit);
 renderTable();
