@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePets } from "../../contexts/PetsContext";
 import { useClients } from "../../contexts/ClientsContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
@@ -15,8 +15,10 @@ export default function PetsPage() {
 	const { clients } = useClients();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
+	const [filteredPets, setFilteredPets] = useState(() => pets);
 	const [editablePet, setEditablePet] = useState(null);
 	const [formError, setFormError] = useState(null);
+	const currentYearRef = useRef(new Date().getFullYear());
 
 	function handleAddClick() {
 		openModal({ title: "Add pet" });
@@ -44,6 +46,7 @@ export default function PetsPage() {
 	}
 
 	function handleInputChange(e) {
+		if (!editablePet) return;
 		setEditablePet(prev => ({ ...prev, [e.target.name]: e.target.value }));
 		setFormError(null);
 	}
@@ -51,6 +54,11 @@ export default function PetsPage() {
 	function getOwnerName(id) {
 		const client = clients.find(client => client.id === id);
 		return client ? client.name : "-";
+	}
+
+	function getPetAge(birthDate) {
+		const age = currentYearRef.current - new Date(birthDate).getFullYear();
+		return age ? ` - ${age} year(s)` : "";
 	}
 
 	async function handleFormSubmit(e) {
@@ -74,6 +82,10 @@ export default function PetsPage() {
 	}
 
 	useEffect(() => {
+		setFilteredPets(pets);
+	}, [pets]);
+
+	useEffect(() => {
 		if (!modalProps) {
 			setEditablePet(null);
 			setFormError(null);
@@ -92,9 +104,9 @@ export default function PetsPage() {
 			<Table
 				className={styles.table}
 				columns={[...petFields.map(field => field.label), "Actions"]}
-				rows={pets.map(pet => [
+				rows={filteredPets.map(pet => [
 					pet.name,
-					new Date(pet.birth_date).toLocaleDateString(),
+					new Date(pet.birth_date).toLocaleDateString() + getPetAge(pet.birth_date),
 					pet.type,
 					pet.breed,
 					pet.affection,
@@ -152,7 +164,7 @@ export default function PetsPage() {
 
 						{formError && <p className="error">{formError}</p>}
 
-						<Button type="submit" kind="positive">
+						<Button type="submit" kind="positive" disabled={!!formError}>
 							Submit
 						</Button>
 					</form>

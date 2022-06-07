@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { routes } from "../../config/routes";
+import { routes } from "../../shared/routes";
 import Layout from "../../components/Shared/Layout";
 import styles from "./Home.module.scss";
 

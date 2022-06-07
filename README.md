@@ -21,6 +21,13 @@ cd client
 This is a list of the available scripts to run the project.
 
 <details style="margin-bottom: 15px">
+    <summary><code>yarn install</code></summary>
+    <p style="font-size: 14px; padding: 5px 0 0 10px">
+        Installs the necessary packages in order to run the project 
+    </p>
+</details>
+
+<details style="margin-bottom: 15px">
     <summary><code>yarn start</code></summary>
     <p style="font-size: 14px; padding: 5px 0 0 10px">
         Starts the project in development mode

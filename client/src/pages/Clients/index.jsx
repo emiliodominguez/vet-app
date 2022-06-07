@@ -98,8 +98,8 @@ export default function ClientsPage() {
 							Edit
 						</Button>
 
-						<Button sm kind="danger" onClick={() => handleDeleteClick(client, true)}>
-							Delete (soft)
+						<Button sm kind="warning" onClick={() => handleDeleteClick(client, true)}>
+							Disable
 						</Button>
 
 						<Button
@@ -109,7 +109,7 @@ export default function ClientsPage() {
 							disabled={!!client.pets.length}
 							title={client.pets.length ? "You can't delete a user who has assigned pets" : undefined}
 						>
-							Delete (hard)
+							Delete
 						</Button>
 					</div>
 				])}
@@ -146,7 +146,7 @@ export default function ClientsPage() {
 
 						{formError && <p className="error">{formError}</p>}
 
-						<Button type="submit" kind="positive">
+						<Button type="submit" kind="positive" disabled={!!formError}>
 							Submit
 						</Button>
 					</form>

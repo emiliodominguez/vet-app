@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ClientsContextProvider } from "../../contexts/ClientsContext";
 import { PetsContextProvider } from "../../contexts/PetsContext";
-import { routes } from "../../config/routes";
+import { routes } from "../../shared/routes";
 import "./App.module.scss";
 
 export default function App() {
