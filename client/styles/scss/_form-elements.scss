@@ -26,9 +26,11 @@ select {
     transition: background-color ease 250ms, transform ease 250ms;
     cursor: pointer;
 
-    &:focus,
-    &:hover {
-        transform: scale(1.05);
+    &:not(:disabled) {
+        &:focus,
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 
     &.sm {
@@ -41,15 +43,21 @@ select {
         color: rgb(var(--primary-color));
     }
 
-    &.danger {
-        background-color: #ca0202;
+    &.positive {
+        background-color: #007f0d;
     }
 
     &.warning {
         background-color: #f5dc00;
     }
 
-    &.positive {
-        background-color: #007f0d;
+    &.danger {
+        background-color: #ca0202;
+    }
+
+    &:disabled {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
     }
 }

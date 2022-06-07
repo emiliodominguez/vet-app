@@ -77,15 +77,21 @@ export function renderTableBody(clients, onEdit, onDelete) {
             softDeleteBtn.addEventListener("click", () => onDelete?.(client.id, true));
             // Hard Delete
             hardDeleteBtn.textContent = "Hard delete";
-            hardDeleteBtn.addEventListener("click", () => {
-                deleteConfirmationModal.setAttribute("open", true);
-                modalConfirmBtn.removeEventListener("click", confirmListenerRegistry.click);
-                confirmListenerRegistry.click = () => onDelete?.(client.id, false);
-                modalConfirmBtn.addEventListener("click", () => {
-                    confirmListenerRegistry.click();
-                    deleteConfirmationModal.setAttribute("open", false);
+
+            if (client.pets?.length) {
+                hardDeleteBtn.disabled = true;
+                hardDeleteBtn.title = "You can't delete a user who has assigned pets";
+            } else {
+                hardDeleteBtn.addEventListener("click", () => {
+                    deleteConfirmationModal.setAttribute("open", true);
+                    modalConfirmBtn.removeEventListener("click", confirmListenerRegistry.click);
+                    confirmListenerRegistry.click = () => onDelete?.(client.id, false);
+                    modalConfirmBtn.addEventListener("click", () => {
+                        confirmListenerRegistry.click();
+                        deleteConfirmationModal.setAttribute("open", false);
+                    });
                 });
-            });
+            }
 
             actionsCell.append(editBtn, softDeleteBtn, hardDeleteBtn);
             tr.append(actionsCell);
