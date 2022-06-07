@@ -10,7 +10,7 @@ select,
 input,
 select {
 	font-family: var(--primary-font);
-	border: 1px solid #999;
+	border: 1px solid rgba(var(--secondary-color, 0.05));
 }
 
 .btn {
@@ -41,16 +41,16 @@ select {
 		color: rgb(var(--primary-color));
 	}
 
-	&.danger {
-		background-color: #ca0202;
+	&.positive {
+		background-color: rgb(var(--positive-color));
 	}
 
 	&.warning {
-		background-color: #f5dc00;
+		background-color: rgb(var(--warning-color));
 	}
 
-	&.positive {
-		background-color: #007f0d;
+	&.danger {
+		background-color: rgb(var(--danger-color));
 	}
 }
 
@@ -84,7 +84,7 @@ select {
 
 	.error {
 		grid-column: 1 / -1;
-		color: #ff0000;
+		color: rgb(var(--danger-color));
 		font-size: 14px;
 		font-weight: variables.font-weight(semi-bold);
 		text-align: center;

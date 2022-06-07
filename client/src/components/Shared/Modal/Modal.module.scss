@@ -37,7 +37,7 @@
 
 			&:hover {
 				svg path {
-					fill: rgb(var(--highlight-color));
+					fill: rgb(var(--danger-color));
 				}
 			}
 
@@ -47,7 +47,7 @@
 		}
 
 		.title {
-			margin-bottom: 25px;
+			margin: 15px 0 25px;
 		}
 	}
 }

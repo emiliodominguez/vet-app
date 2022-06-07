@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useClients } from "../../contexts/ClientsContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
+import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { clientFields } from "../../shared/constants";
 import { className } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
@@ -10,6 +11,7 @@ import styles from "./Clients.module.scss";
 export default function ClientsPage() {
 	const { clients, saveClient, editClient, softDeleteClient, hardDeleteClient } = useClients();
 	const { modalProps, openModal, closeModal } = useModal();
+	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
 	const [editableClient, setEditableClient] = useState(null);
 	const [formError, setFormError] = useState(null);
 
@@ -24,15 +26,19 @@ export default function ClientsPage() {
 		setFormError(null);
 	}
 
-	const handleInputChange = useCallback(e => {
-		setEditableClient(prev => {
-			if (prev) return { ...prev, [e.target.name]: e.target.value };
+	function handleDeleteClick(client, soft) {
+		openConfirmationModal({
+			title: `Are you sure you want to delete ${client.name}`,
+			confirmText: "Yes",
+			cancelText: "No",
+			onConfirm: () => {
+				soft ? softDeleteClient(client.id) : hardDeleteClient(client.id);
+				closeConfirmationModal();
+			},
+			onCancel: closeConfirmationModal,
+			close: closeConfirmationModal
 		});
-
-		setFormError(prev => {
-			if (prev) return null;
-		});
-	}, []);
+	}
 
 	async function handleFormSubmit(e) {
 		e.preventDefault();
@@ -66,6 +72,7 @@ export default function ClientsPage() {
 		<Layout className={styles.clients}>
 			<h1>Clients</h1>
 
+			{/* Clients table */}
 			<Table
 				className={styles.table}
 				columns={[...clientFields.map(field => field.label), "Actions"]}
@@ -86,21 +93,23 @@ export default function ClientsPage() {
 							Edit
 						</button>
 
-						<button className="btn sm danger" onClick={() => softDeleteClient(client.id)}>
+						<button className="btn sm danger" onClick={() => handleDeleteClick(client, true)}>
 							Delete (soft)
 						</button>
 
-						<button className="btn sm danger" onClick={() => hardDeleteClient(client.id)}>
+						<button className="btn sm danger" onClick={() => handleDeleteClick(client, false)}>
 							Delete (hard)
 						</button>
 					</div>
 				])}
 			/>
 
+			{/* Add client button */}
 			<button {...className("btn", styles.addClientBtn)} onClick={handleAddClick}>
 				+ Add client
 			</button>
 
+			{/* Set client form modal */}
 			{modalProps && (
 				<Modal {...modalProps} close={closeModal}>
 					<form className="form" onSubmit={handleFormSubmit}>
@@ -115,7 +124,10 @@ export default function ClientsPage() {
 											type={field.inputType}
 											placeholder={field.placeholder}
 											value={editableClient?.[field.key]}
-											onChange={handleInputChange}
+											onChange={e => {
+												setEditableClient(prev => ({ ...prev, [field.key]: e.target.value }));
+												setFormError(null);
+											}}
 										/>
 									</div>
 								)
@@ -127,6 +139,9 @@ export default function ClientsPage() {
 					</form>
 				</Modal>
 			)}
+
+			{/* Delete confirmation modal */}
+			{confirmationModalProps && <ConfirmationModal {...confirmationModalProps} />}
 		</Layout>
 	);
 }

@@ -2,18 +2,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Esteban&display=swap");
 
 :root {
-    // Colors
-    --primary-color: 255, 255, 255;
-    --secondary-color: 17, 17, 17;
-    --highlight-color: 127, 200, 223;
+	// Colors
+	--primary-color: 255, 255, 255;
+	--secondary-color: 17, 17, 17;
+	--highlight-color: 127, 200, 223;
+	--positive-color: 0, 127, 13;
+	--warning-color: 245, 220, 0;
+	--danger-color: 202, 2, 2;
 
-    // Fonts
-    --primary-font: "Montserrat", sans-serif;
-    --secondary-font: "Esteban", serif;
+	// Fonts
+	--primary-font: "Montserrat", sans-serif;
+	--secondary-font: "Esteban", serif;
 
-    // Sizes
-    --header-height: 75px;
-    --footer-height: 75px;
-    --main-height: calc(100vh - (var(--header-height) + var(--footer-height)));
-    --common-padding: 25px;
+	// Sizes
+	--header-height: 75px;
+	--footer-height: 75px;
+	--main-height: calc(100vh - (var(--header-height) + var(--footer-height)));
+	--common-padding: 25px;
 }

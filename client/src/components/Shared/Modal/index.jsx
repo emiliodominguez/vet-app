@@ -1,10 +1,11 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
+import PropTypes from "prop-types";
+import { className } from "../../../shared/helpers";
 import styles from "./Modal.module.scss";
 
 export default function Modal(props) {
 	return (
-		<div className={styles.modal}>
+		<div {...className(styles.modal, props.className)}>
 			<div className={styles.content}>
 				<button className={styles.closeBtn} onClick={props.close}>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -31,6 +32,7 @@ export function useModal() {
 
 Modal.propTypes = {
 	children: PropTypes.node,
+	className: PropTypes.string,
 	title: PropTypes.string,
 	close: PropTypes.func.isRequired
 };
