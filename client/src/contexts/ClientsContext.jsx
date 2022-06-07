@@ -64,6 +64,7 @@ export function ClientsContextProvider(props) {
 		<ClientsContext.Provider
 			value={{
 				clients,
+				getClients,
 				getClient,
 				saveClient,
 				editClient,

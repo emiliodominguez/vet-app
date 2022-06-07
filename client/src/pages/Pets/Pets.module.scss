@@ -4,11 +4,23 @@
 	}
 }
 
-.rowActions {
-	button {
-		+ button {
-			margin-left: 15px;
+.table {
+	ul {
+		line-height: 1.75;
+	}
+
+	.actions {
+		button {
+			+ button {
+				margin-left: 15px;
+			}
 		}
+	}
+}
+
+.form {
+	select {
+		grid-column: 1 / -1;
 	}
 }
 

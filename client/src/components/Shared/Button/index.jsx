@@ -4,7 +4,13 @@ import styles from "./Button.module.scss";
 
 export default function Button(props) {
 	return (
-		<button type={props.type} {...className(styles.btn, styles[props.kind], props.className, { [styles.sm]: props.sm })} onClick={props.onClick}>
+		<button
+			{...className(styles.btn, styles[props.kind], props.className, { [styles.sm]: props.sm })}
+			type={props.type}
+			title={props.title}
+			onClick={props.onClick}
+			disabled={props.disabled}
+		>
 			{props.children}
 		</button>
 	);
@@ -15,5 +21,7 @@ Button.propTypes = {
 	kind: PropTypes.oneOf(["positive", "warning", "danger"]),
 	sm: PropTypes.bool,
 	type: PropTypes.string,
-	onClick: PropTypes.func
+	title: PropTypes.string,
+	onClick: PropTypes.func,
+	disabled: PropTypes.bool
 };

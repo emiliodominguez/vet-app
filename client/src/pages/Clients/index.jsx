@@ -9,7 +9,7 @@ import Button from "../../components/Shared/Button";
 import styles from "./Clients.module.scss";
 
 export default function ClientsPage() {
-	const { clients, saveClient, editClient, softDeleteClient, hardDeleteClient } = useClients();
+	const { clients, getClients, saveClient, editClient, softDeleteClient, hardDeleteClient } = useClients();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
 	const [editableClient, setEditableClient] = useState(null);
@@ -21,16 +21,16 @@ export default function ClientsPage() {
 	}
 
 	function handleEditClick(client) {
-		openModal({ title: "Edit client" });
+		openModal({ title: `Edit ${client.name}` });
 		setEditableClient(client);
 		setFormError(null);
 	}
 
 	function handleDeleteClick(client, soft) {
 		openConfirmationModal({
-			title: `Are you sure you want to delete ${client.name}`,
+			title: `Are you sure you want to ${soft ? "disable" : "delete"} ${client.name}`,
 			confirmText: "Yes",
-			cancelText: "No",
+			cancelText: "Cancel",
 			onConfirm: () => {
 				soft ? softDeleteClient(client.id) : hardDeleteClient(client.id);
 				closeConfirmationModal();
@@ -59,6 +59,11 @@ export default function ClientsPage() {
 			setFormError(error.message);
 		}
 	}
+
+	useEffect(() => {
+		getClients();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		if (!modalProps) {
@@ -97,7 +102,13 @@ export default function ClientsPage() {
 							Delete (soft)
 						</Button>
 
-						<Button sm kind="danger" onClick={() => handleDeleteClick(client, false)}>
+						<Button
+							sm
+							kind="danger"
+							onClick={() => handleDeleteClick(client, false)}
+							disabled={!!client.pets.length}
+							title={client.pets.length ? "You can't delete a user who has assigned pets" : undefined}
+						>
 							Delete (hard)
 						</Button>
 					</div>
