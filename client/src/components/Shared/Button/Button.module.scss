@@ -1,24 +1,8 @@
+@use "../../../styles/form-elements";
 @use "../../../styles/variables";
 
 .btn {
-	display: inline-block;
-	background-color: rgb(var(--highlight-color));
-	color: rgb(var(--secondary-color));
-	text-decoration: none;
-	border: none;
-	font-size: 14px;
-	font-weight: variables.font-weight(bold);
-	letter-spacing: 0.5px;
-	padding: 10px;
-	border-radius: 3px;
-	text-transform: uppercase;
-	transition: background-color ease 250ms, transform ease 250ms;
-	cursor: pointer;
-
-	&:focus,
-	&:hover {
-		transform: scale(1.05);
-	}
+	@extend .btn;
 
 	&.sm {
 		padding: 5px 8px;

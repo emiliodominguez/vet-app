@@ -1,11 +1,35 @@
 @use "./variables";
 
 input,
-select {
+select,
+.btn {
 	padding: 10px;
-	border-radius: 5px;
+	border-radius: 4px;
+}
+
+input,
+select {
 	font-family: var(--primary-font);
 	border: 1px solid rgba(var(--secondary-color, 0.05));
+}
+
+.btn {
+	display: inline-block;
+	background-color: rgb(var(--highlight-color));
+	color: rgb(var(--secondary-color));
+	text-decoration: none;
+	border: none;
+	font-size: 14px;
+	font-weight: variables.font-weight(bold);
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	transition: background-color ease 250ms, transform ease 250ms;
+	cursor: pointer;
+
+	&:focus,
+	&:hover {
+		transform: scale(1.05);
+	}
 }
 
 .form {
