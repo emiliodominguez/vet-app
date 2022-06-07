@@ -4,11 +4,11 @@ from models import Pet
 from schemas import PetCreate, PetSchema
 
 
-def get_pet_by_owner(db: Session, client_id: int) -> Union[Pet,None]:
+def get_pet_by_owner(db: Session, client_id: int) -> List[Pet]:
     """
     Get one pet by Owner Id
     """
-    return db.query(Pet).filter(Pet.owner_id == client_id).first()
+    return db.query(Pet).filter(Pet.owner_id == client_id).all()
 
 
 def get_pet(db: Session, pet_id: int) -> Union[Pet,None]:
