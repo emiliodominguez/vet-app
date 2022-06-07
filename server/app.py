@@ -85,7 +85,7 @@ def read_pet_by_id(pet_id: int, db: Session = Depends(get_db)) -> list[PetSchema
     return db_pet
 
 @app.get("/pets_by_owner/{client_id}", response_model = List[PetSchema])
-def read_pet_by_owner(client_id: int, db: Session = Depends(get_db)) -> List[Pet]:
+def read_pets_by_owner(client_id: int, db: Session = Depends(get_db)) -> List[Pet]:
     db_pet = pets.get_pet_by_owner(db, client_id = client_id)
     if db_pet is None:
         raise HTTPException(status_code = 204, detail = "Pet not found")
