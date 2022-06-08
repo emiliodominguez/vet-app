@@ -5,7 +5,7 @@ import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { petFields } from "../../shared/constants";
-import { className, searchByName } from "../../shared/helpers";
+import { className, highlightText, searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
@@ -152,7 +152,7 @@ export default function PetsPage() {
 				className={styles.table}
 				columns={[...petFields.map(field => field.label), "Actions"]}
 				rows={filteredPets.map(pet => [
-					pet.name,
+					<p dangerouslySetInnerHTML={{ __html: highlightText(pet.name, filters.searchText) }} />,
 					new Date(pet.birth_date).toLocaleDateString() + getPetAge(pet.birth_date),
 					pet.type,
 					pet.breed,
