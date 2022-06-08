@@ -21,16 +21,18 @@ cd client
 This is a list of the available scripts to run the project.
 
 <details style="margin-bottom: 15px">
+    <summary><code>npm install</code></summary>
+    <p style="font-size: 14px; padding: 5px 0 0 10px">Installs the necessary packages in order to run the project. You may need to delete the node_modules folder if switching between branches.</p>
+</details>
+
+<details style="margin-bottom: 15px">
     <summary><code>npm run dev</code></summary>
-    <p style="font-size: 14px; padding: 5px 0 0 10px">
-        Runs the app with Live Server and starts the SASS compiler<br>
+    <p style="font-size: 14px; padding: 5px 0 0 10px">Runs the app with Live Server and starts the SASS compiler</p>
 </details>
 
 <details style="margin-bottom: 15px">
     <summary><code>npm run serve</code></summary>
-    <p style="font-size: 14px; padding: 5px 0 0 10px">
-        Runs Live Server
-    </p>
+    <p style="font-size: 14px; padding: 5px 0 0 10px">Runs Live Server</p>
 </details>
 
 ---
@@ -57,10 +59,10 @@ virtualenv <environment_name>
 
 3 - Activate(or deactivate) virtual environment
 
-* On Windows run `<environment_name>\Scripts\activate.bat`  (*`deactivate.bat` to deactivate the environment*).
-* On Windows using PowerShell, run `<environment_name>\Scripts\activate.ps1`  (*just `deactivate` to deactivate the environment*).
-* On Windows using Git Bash run `<environment_name>\Scripts\activate`  (*`deactivate` to deactivate the environment*).
-* On Linux run `source <environment_name>/bin/activate`     (*`deactivate` to deactivate the environment*)
+-   On Windows run `<environment_name>\Scripts\activate.bat` (_`deactivate.bat` to deactivate the environment_).
+-   On Windows using PowerShell, run `<environment_name>\Scripts\activate.ps1` (_just `deactivate` to deactivate the environment_).
+-   On Windows using Git Bash run `<environment_name>\Scripts\activate` (_`deactivate` to deactivate the environment_).
+-   On Linux run `source <environment_name>/bin/activate` (_`deactivate` to deactivate the environment_)
 
 4 - Install required libraries
 
@@ -80,9 +82,9 @@ uvicorn app:app --reload
 
 ### Every time you run the server
 
-* Step 3 in order to enter the virtual environment
+-   Step 3 in order to enter the virtual environment
 
-* Step 5 to run the server
+-   Step 5 to run the server
 
 ---
 
