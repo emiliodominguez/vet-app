@@ -1,24 +1,32 @@
 import { useEffect, useState, useRef } from "react";
 import { usePets } from "../../contexts/PetsContext";
 import { useClients } from "../../contexts/ClientsContext";
+import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { petFields } from "../../shared/constants";
-import { className } from "../../shared/helpers";
+import { className, searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
+import OwnersSelect from "./OwnersSelect";
 import styles from "./Pets.module.scss";
 
 export default function PetsPage() {
-	const { pets, getPetsByOwner, getPet, savePet, editPet, deletePet } = usePets();
+	const { pets, getPetsByOwner, savePet, editPet, deletePet } = usePets();
 	const { clients } = useClients();
+	const { filters, search, filterPetsByOwner, clearFilters: clearFiltersCtx } = useFilters();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
 	const [filteredPets, setFilteredPets] = useState(() => pets);
 	const [editablePet, setEditablePet] = useState(null);
 	const [formError, setFormError] = useState(null);
 	const currentYearRef = useRef(new Date().getFullYear());
+
+	function clearFilters() {
+		clearFiltersCtx();
+		setFilteredPets(pets);
+	}
 
 	function handleAddClick() {
 		openModal({ title: "Add pet" });
@@ -45,20 +53,10 @@ export default function PetsPage() {
 		});
 	}
 
-	function handleInputChange(e) {
+	function handleFormInputChange(e) {
 		if (!editablePet) return;
 		setEditablePet(prev => ({ ...prev, [e.target.name]: e.target.value }));
 		setFormError(null);
-	}
-
-	function getOwnerName(id) {
-		const client = clients.find(client => client.id === id);
-		return client ? client.name : "-";
-	}
-
-	function getPetAge(birthDate) {
-		const age = currentYearRef.current - new Date(birthDate).getFullYear();
-		return age ? ` - ${age} year(s)` : "";
 	}
 
 	async function handleFormSubmit(e) {
@@ -81,9 +79,38 @@ export default function PetsPage() {
 		}
 	}
 
+	function getOwnerName(id) {
+		const client = clients.find(client => client.id === id);
+		return client ? client.name : "-";
+	}
+
+	function getPetAge(birthDate) {
+		const age = currentYearRef.current - new Date(birthDate).getFullYear();
+		return age ? ` - ${age} year(s)` : "";
+	}
+
 	useEffect(() => {
 		setFilteredPets(pets);
 	}, [pets]);
+
+	useEffect(() => {
+		if (filters.owner) {
+			getPetsByOwner(filters.owner).then(data => {
+				const filtered = pets.reduce((acc, pet) => {
+					if (data.find(x => x.id === pet.id)) {
+						acc.push(pet);
+					}
+
+					return filters.searchText ? searchByName(acc, filters.searchText) : acc;
+				}, []);
+
+				setFilteredPets(filtered);
+			});
+		}
+
+		setFilteredPets(searchByName(pets, filters.searchText));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [filters]);
 
 	useEffect(() => {
 		if (!modalProps) {
@@ -98,7 +125,22 @@ export default function PetsPage() {
 			<h1>Pets</h1>
 
 			{/* Filters section */}
-			{/* <div className={styles.filters}></div> */}
+			<div className={styles.filters}>
+				<input type="search" placeholder="Search pets..." value={filters.searchText} onChange={e => search(e.target.value)} />
+
+				{clients.length > 0 && (
+					<OwnersSelect
+						clients={clients}
+						value={filters.owner}
+						placeholder="Filter by owner"
+						onChange={e => filterPetsByOwner(e.target.value)}
+					/>
+				)}
+
+				<Button type="submit" kind="danger" sm onClick={clearFilters}>
+					Clear filters
+				</Button>
+			</div>
 
 			{/* Pets table */}
 			<Table
@@ -146,20 +188,20 @@ export default function PetsPage() {
 											type={field.inputType}
 											placeholder={field.placeholder}
 											value={editablePet?.[field.key]}
-											onChange={handleInputChange}
+											onChange={handleFormInputChange}
 										/>
 									</div>
 								)
 						)}
 
 						{clients.length > 0 && (
-							<select name="owner_id" value={editablePet?.owner_id ?? ""} onChange={handleInputChange} required>
-								{clients.map(client => (
-									<option key={client.id} value={client.id}>
-										{client.name}
-									</option>
-								))}
-							</select>
+							<OwnersSelect
+								name="owner_id"
+								clients={clients}
+								value={editablePet?.owner_id ?? ""}
+								onChange={handleFormInputChange}
+								required
+							/>
 						)}
 
 						{formError && <p className="error">{formError}</p>}

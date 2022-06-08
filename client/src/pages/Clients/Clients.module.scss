@@ -1,6 +1,14 @@
-.clients {
-	h1 {
-		margin-bottom: 50px;
+.clients > h1 {
+	margin-bottom: 50px;
+}
+
+.filters {
+	display: flex;
+	gap: 25px;
+	margin-bottom: 50px;
+
+	input {
+		flex: 1;
 	}
 }
 

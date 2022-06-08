@@ -42,4 +42,8 @@
 	th {
 		min-width: 100px;
 	}
+
+	.noRecordsMessage {
+		color: rgba(var(--primary-color), 0.5);
+	}
 }

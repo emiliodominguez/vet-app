@@ -15,13 +15,19 @@ export default function Table(props) {
 				</thead>
 
 				<tbody>
-					{props.rows.map((row, i) => (
-						<tr key={`row_${i}`}>
-							{row.map((element, i) => (
-								<td key={`element_${i}`}>{element || "-"}</td>
-							))}
+					{props.rows.length === 0 ? (
+						<tr>
+							<td className={styles.noRecordsMessage}>{props.noRecordsMessage ?? "No records to list..."}</td>
 						</tr>
-					))}
+					) : (
+						props.rows.map((row, i) => (
+							<tr key={`row_${i}`}>
+								{row.map((element, i) => (
+									<td key={`element_${i}`}>{element || "-"}</td>
+								))}
+							</tr>
+						))
+					)}
 				</tbody>
 			</table>
 		</div>
@@ -31,5 +37,6 @@ export default function Table(props) {
 Table.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.string).isRequired,
 	rows: PropTypes.arrayOf(PropTypes.array).isRequired,
-	className: PropTypes.string
+	className: PropTypes.string,
+	noRecordsMessage: PropTypes.string
 };

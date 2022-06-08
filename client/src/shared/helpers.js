@@ -23,3 +23,13 @@ export function className(...classNames) {
 
 	return { className: classes.join(" ") };
 }
+
+/**
+ * Searches by name inside an array of entities
+ * @param {any[]} target The target array
+ * @param {string} text The search text
+ * @returns The filtered array
+ */
+export function searchByName(target, text) {
+	return target.filter(pet => pet.name.toLowerCase().includes(text.toLowerCase()));
+}

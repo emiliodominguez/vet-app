@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import { useClients } from "../../contexts/ClientsContext";
+import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { clientFields } from "../../shared/constants";
+import { searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
 import styles from "./Clients.module.scss";
 
 export default function ClientsPage() {
-	const { clients, getClients, saveClient, editClient, softDeleteClient, hardDeleteClient } = useClients();
+	const { clients, saveClient, editClient, softDeleteClient, hardDeleteClient } = useClients();
+	const { filters, search, clearFilters: clearFiltersCtx } = useFilters();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
+	const [filteredClients, setFilteredClients] = useState(() => clients);
 	const [editableClient, setEditableClient] = useState(null);
 	const [formError, setFormError] = useState(null);
+
+	function clearFilters() {
+		clearFiltersCtx();
+		setFilteredClients(clients);
+	}
 
 	function handleAddClick() {
 		openModal({ title: "Add client" });
@@ -61,9 +70,8 @@ export default function ClientsPage() {
 	}
 
 	useEffect(() => {
-		getClients();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		setFilteredClients(clients);
+	}, [clients]);
 
 	useEffect(() => {
 		if (!modalProps) {
@@ -73,15 +81,29 @@ export default function ClientsPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalProps]);
 
+	useEffect(() => {
+		setFilteredClients(searchByName(clients, filters.searchText));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [filters.searchText]);
+
 	return (
 		<Layout className={styles.clients}>
 			<h1>Clients</h1>
+
+			{/* Filters section */}
+			<div className={styles.filters}>
+				<input type="search" placeholder="Search clients..." value={filters.searchText} onChange={e => search(e.target.value)} />
+
+				<Button type="submit" kind="danger" sm onClick={clearFilters}>
+					Clear filters
+				</Button>
+			</div>
 
 			{/* Clients table */}
 			<Table
 				className={styles.table}
 				columns={[...clientFields.map(field => field.label), "Actions"]}
-				rows={clients.map(client => [
+				rows={filteredClients.map(client => [
 					client.name,
 					client.email,
 					client.age,
