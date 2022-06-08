@@ -33,3 +33,8 @@ export function className(...classNames) {
 export function searchByName(target, text) {
 	return target.filter(pet => pet.name.toLowerCase().includes(text.toLowerCase()));
 }
+
+export function highlightText(string, stringToHighlight) {
+	const regExp = new RegExp(stringToHighlight, "gi");
+	return string.replace(regExp, foundString => `<b class="highlight">${foundString}</b>`);
+}

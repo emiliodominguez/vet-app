@@ -4,7 +4,7 @@ import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { clientFields } from "../../shared/constants";
-import { searchByName } from "../../shared/helpers";
+import { highlightText, searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
@@ -104,7 +104,7 @@ export default function ClientsPage() {
 				className={styles.table}
 				columns={[...clientFields.map(field => field.label), "Actions"]}
 				rows={filteredClients.map(client => [
-					client.name,
+					<p dangerouslySetInnerHTML={{ __html: highlightText(client.name, filters.searchText) }} />,
 					client.email,
 					client.age,
 					new Date(client.birth_date).toLocaleDateString(),
