@@ -120,6 +120,11 @@ export default function PetsPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modalProps]);
 
+	useEffect(() => {
+		return () => clearFilters();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<Layout className={styles.pets}>
 			<h1>Pets</h1>

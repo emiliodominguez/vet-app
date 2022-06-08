@@ -86,6 +86,11 @@ export default function ClientsPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filters.searchText]);
 
+	useEffect(() => {
+		return () => clearFilters();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<Layout className={styles.clients}>
 			<h1>Clients</h1>
