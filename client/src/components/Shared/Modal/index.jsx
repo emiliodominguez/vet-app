@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { className } from "../../../shared/helpers";
 import styles from "./Modal.module.scss";
 
 export default function Modal(props) {
+	useEffect(() => {
+		return () => {
+			props.onClose?.();
+		};
+	}, [props]);
+
 	return (
 		<div {...className(styles.modal, props.className)}>
 			<div className={styles.content}>
@@ -34,5 +40,6 @@ Modal.propTypes = {
 	children: PropTypes.node,
 	className: PropTypes.string,
 	title: PropTypes.string,
-	close: PropTypes.func.isRequired
+	close: PropTypes.func.isRequired,
+	onClose: PropTypes.func
 };

@@ -15,7 +15,7 @@ export default function ClientsPage() {
 	const { filters, search, clearFilters: clearFiltersCtx } = useFilters();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
-	const [filteredClients, setFilteredClients] = useState(() => clients);
+	const [filteredClients, setFilteredClients] = useState(clients);
 	const [editableClient, setEditableClient] = useState(null);
 	const [formError, setFormError] = useState(null);
 
@@ -68,18 +68,6 @@ export default function ClientsPage() {
 			setFormError(error.message);
 		}
 	}
-
-	useEffect(() => {
-		setFilteredClients(clients);
-	}, [clients]);
-
-	useEffect(() => {
-		if (!modalProps) {
-			setEditableClient(null);
-			setFormError(null);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [modalProps]);
 
 	useEffect(() => {
 		setFilteredClients(searchByName(clients, filters.searchText));
@@ -149,7 +137,14 @@ export default function ClientsPage() {
 
 			{/* Set client form modal */}
 			{modalProps && (
-				<Modal {...modalProps} close={closeModal}>
+				<Modal
+					{...modalProps}
+					close={closeModal}
+					onClose={() => {
+						setEditableClient(null);
+						setFormError(null);
+					}}
+				>
 					<form className="form" onSubmit={handleFormSubmit}>
 						{Object.values(clientFields).map(
 							field =>

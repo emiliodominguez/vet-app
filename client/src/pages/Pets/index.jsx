@@ -18,7 +18,7 @@ export default function PetsPage() {
 	const { filters, search, filterPetsByOwner, clearFilters: clearFiltersCtx } = useFilters();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
-	const [filteredPets, setFilteredPets] = useState(() => pets);
+	const [filteredPets, setFilteredPets] = useState(pets);
 	const [editablePet, setEditablePet] = useState(null);
 	const [formError, setFormError] = useState(null);
 	const currentYearRef = useRef(new Date().getFullYear());
@@ -90,10 +90,6 @@ export default function PetsPage() {
 	}
 
 	useEffect(() => {
-		setFilteredPets(pets);
-	}, [pets]);
-
-	useEffect(() => {
 		if (filters.owner) {
 			getPetsByOwner(filters.owner).then(data => {
 				const filtered = pets.reduce((acc, pet) => {
@@ -111,14 +107,6 @@ export default function PetsPage() {
 		setFilteredPets(searchByName(pets, filters.searchText));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filters]);
-
-	useEffect(() => {
-		if (!modalProps) {
-			setEditablePet(null);
-			setFormError(null);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [modalProps]);
 
 	useEffect(() => {
 		return () => clearFilters();
@@ -180,7 +168,14 @@ export default function PetsPage() {
 
 			{/* Set pet form modal */}
 			{modalProps && (
-				<Modal {...modalProps} close={closeModal}>
+				<Modal
+					{...modalProps}
+					close={closeModal}
+					onClose={() => {
+						setEditablePet(null);
+						setFormError(null);
+					}}
+				>
 					<form {...className("form", styles.form)} onSubmit={handleFormSubmit}>
 						{Object.values(petFields).map(
 							field =>
