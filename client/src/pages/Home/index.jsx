@@ -11,13 +11,9 @@ export default function HomePage() {
 			</div>
 
 			<div className={styles.content}>
-				<h2>Lorem ipsum dolor sit amet consectetur</h2>
-
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero dolores autem unde pariatur cum ipsa! Reprehenderit voluptatibus,
-					veniam inventore nulla adipisci distinctio totam saepe deserunt soluta nostrum natus quidem aut quos, corporis recusandae dolorem
-					rerum tempora ullam!
-				</p>
+				<h2>
+					Pass It On! <b>¿Backend or Frontend?</b>
+				</h2>
 
 				<Link to={routes.clients.path} className="btn">
 					Go to clients
