@@ -9,13 +9,15 @@ export default function App() {
 	return (
 		<ClientsContextProvider>
 			<PetsContextProvider>
-				<BrowserRouter>
-					<Routes>
-						{Object.entries(routes).map(([key, route]) => (
-							<Route key={key} path={route.path} element={<FiltersContextProvider>{route.element}</FiltersContextProvider>} />
-						))}
-					</Routes>
-				</BrowserRouter>
+				<FiltersContextProvider>
+					<BrowserRouter>
+						<Routes>
+							{Object.entries(routes).map(([key, route]) => (
+								<Route key={key} {...route} />
+							))}
+						</Routes>
+					</BrowserRouter>
+				</FiltersContextProvider>
 			</PetsContextProvider>
 		</ClientsContextProvider>
 	);
