@@ -80,7 +80,7 @@ export default function ClientsPage() {
 	}, []);
 
 	return (
-		<Layout className={styles.clients}>
+		<Layout title="Clients" className={styles.clients}>
 			<h1>Clients</h1>
 
 			{/* Filters section */}

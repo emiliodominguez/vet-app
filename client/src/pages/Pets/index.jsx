@@ -114,7 +114,7 @@ export default function PetsPage() {
 	}, []);
 
 	return (
-		<Layout className={styles.pets}>
+		<Layout title="Pets" className={styles.pets}>
 			<h1>Pets</h1>
 
 			{/* Filters section */}

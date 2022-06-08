@@ -11,7 +11,7 @@
 		align-items: center;
 	}
 
-	a {
+	a:not(:global(.btn)) {
 		text-decoration: none;
 		color: var(--primary-color);
 		transition: color ease 250ms;
@@ -27,7 +27,7 @@
 	color: rgba(var(--highlight-color), 0.75);
 
 	h1 {
-		font-size: 18px;
+		font-size: clamp(20px, 5vw, 30px);
 	}
 }
 
