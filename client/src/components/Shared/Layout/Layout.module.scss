@@ -1,0 +1,5 @@
+@use "../../../styles/shared/mixins";
+
+.main {
+	@include mixins.custom-scrollbar;
+}

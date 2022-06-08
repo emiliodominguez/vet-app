@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
+import { className } from "../../../shared/helpers";
 import Header from "./Header";
 import Footer from "./Footer";
-import "./Layout.module.scss";
+import styles from "./Layout.module.scss";
 
 export default function Layout(props) {
 	return (
 		<>
 			<Header />
-			<main className={props.className}>{props.children}</main>
+			<main {...className(styles.main, props.className)}>{props.children}</main>
 			<Footer />
 		</>
 	);

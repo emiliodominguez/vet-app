@@ -1,8 +1,10 @@
 @use "../../../styles/variables";
+@use "../../../styles/shared/mixins";
 
 .container {
 	max-width: 100%;
 	overflow-x: auto;
+	@include mixins.custom-scrollbar;
 }
 
 .table {
