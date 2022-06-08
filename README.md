@@ -23,7 +23,8 @@ This is a list of the available scripts to run the project.
 <details style="margin-bottom: 15px">
     <summary><code>yarn install</code></summary>
     <p style="font-size: 14px; padding: 5px 0 0 10px">
-        Installs the necessary packages in order to run the project 
+        Installs the necessary packages in order to run the project. 
+        You may need to delete the node_modules folder if switching between branches.
     </p>
 </details>
 
