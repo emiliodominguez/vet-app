@@ -49,6 +49,11 @@ export default function ClientsPage() {
 		});
 	}
 
+	function handleFormInputChange(e) {
+		setEditableClient(prev => ({ ...prev, [e.target.name]: e.target.value }));
+		setFormError(null);
+	}
+
 	async function handleFormSubmit(e) {
 		e.preventDefault();
 
@@ -143,10 +148,10 @@ export default function ClientsPage() {
 			{modalProps && (
 				<Modal
 					{...modalProps}
-					close={closeModal}
-					onClose={() => {
+					close={() => {
 						setEditableClient(null);
 						setFormError(null);
+						closeModal();
 					}}
 				>
 					<form className="form" onSubmit={handleFormSubmit}>
@@ -160,11 +165,8 @@ export default function ClientsPage() {
 											name={field.key}
 											type={field.inputType}
 											placeholder={field.placeholder}
-											value={editableClient?.[field.key] ?? ""}
-											onChange={e => {
-												setEditableClient(prev => ({ ...prev, [field.key]: e.target.value }));
-												setFormError(null);
-											}}
+											value={editableClient?.[field.key]}
+											onChange={handleFormInputChange}
 										/>
 									</div>
 								)

@@ -14,7 +14,29 @@
 
 .table {
 	ul {
-		line-height: 1.75;
+		$dot-indicator-offset: 15px;
+
+		list-style: none;
+		line-height: 2;
+		padding-left: $dot-indicator-offset;
+
+		li {
+			position: relative;
+
+			&::before {
+				$dot-size: 5px;
+
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: -$dot-indicator-offset;
+				width: $dot-size;
+				height: $dot-size;
+				border-radius: 50%;
+				background-color: rgb(var(--highlight-color));
+				transform: translateY(-50%);
+			}
+		}
 	}
 
 	.actions {

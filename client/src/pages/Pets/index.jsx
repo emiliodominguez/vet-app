@@ -54,7 +54,6 @@ export default function PetsPage() {
 	}
 
 	function handleFormInputChange(e) {
-		if (!editablePet) return;
 		setEditablePet(prev => ({ ...prev, [e.target.name]: e.target.value }));
 		setFormError(null);
 	}
@@ -174,10 +173,10 @@ export default function PetsPage() {
 			{modalProps && (
 				<Modal
 					{...modalProps}
-					close={closeModal}
-					onClose={() => {
+					close={() => {
 						setEditablePet(null);
 						setFormError(null);
+						closeModal();
 					}}
 				>
 					<form {...className("form", styles.form)} onSubmit={handleFormSubmit}>

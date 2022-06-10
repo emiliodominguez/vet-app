@@ -30,6 +30,8 @@
 		}
 
 		td {
+			vertical-align: text-top;
+
 			b:global(.highlight) {
 				color: rgb(var(--highlight-color));
 			}
