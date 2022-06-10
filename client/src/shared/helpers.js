@@ -34,7 +34,23 @@ export function searchByName(target, text) {
 	return target.filter(pet => pet.name.toLowerCase().includes(text.toLowerCase()));
 }
 
+/**
+ * Highlights any given text
+ * @param {string} string The source text
+ * @param {string} stringToHighlight The text to highlight
+ * @returns The merged highlighted text
+ */
 export function highlightText(string, stringToHighlight) {
 	const regExp = new RegExp(stringToHighlight, "gi");
 	return string.replace(regExp, foundString => `<b class="highlight">${foundString}</b>`);
+}
+
+/**
+ * Gets an age based on the birth year
+ * @param {Date} birthDate The birth date
+ * @returns The age
+ */
+export function getAge(birthDate) {
+	const currentYear = new Date().getFullYear();
+	return currentYear - new Date(birthDate).getFullYear();
 }

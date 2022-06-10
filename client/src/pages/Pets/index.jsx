@@ -5,7 +5,7 @@ import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { petFields } from "../../shared/constants";
-import { className, highlightText, searchByName } from "../../shared/helpers";
+import { className, getAge, highlightText, searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
@@ -21,7 +21,6 @@ export default function PetsPage() {
 	const [filteredPets, setFilteredPets] = useState(pets);
 	const [editablePet, setEditablePet] = useState(null);
 	const [formError, setFormError] = useState(null);
-	const currentYearRef = useRef(new Date().getFullYear());
 
 	function clearFilters() {
 		clearFiltersCtx();
@@ -83,11 +82,6 @@ export default function PetsPage() {
 		return client ? client.name : "-";
 	}
 
-	function getPetAge(birthDate) {
-		const age = currentYearRef.current - new Date(birthDate).getFullYear();
-		return age ? ` - ${age} year(s)` : "";
-	}
-
 	useEffect(() => {
 		setFilteredPets(pets);
 	}, [pets]);
@@ -144,7 +138,7 @@ export default function PetsPage() {
 				columns={[...petFields.map(field => field.label), "Actions"]}
 				rows={filteredPets.map(pet => [
 					<p dangerouslySetInnerHTML={{ __html: highlightText(pet.name, filters.searchText) }} />,
-					new Date(pet.birth_date).toLocaleDateString() + getPetAge(pet.birth_date),
+					new Date(pet.birth_date).toLocaleDateString() + ` (${getAge(pet.birth_date) ?? "-"})`,
 					pet.type,
 					pet.breed,
 					pet.affection,

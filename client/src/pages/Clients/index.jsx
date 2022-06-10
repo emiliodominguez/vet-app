@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useClients } from "../../contexts/ClientsContext";
 import { useFilters } from "../../contexts/FiltersContext";
 import Modal, { useModal } from "../../components/Shared/Modal";
 import ConfirmationModal, { useConfirmationModal } from "../../components/Shared/ConfirmationModal";
 import { clientFields } from "../../shared/constants";
-import { highlightText, searchByName } from "../../shared/helpers";
+import { getAge, highlightText, searchByName } from "../../shared/helpers";
 import Layout from "../../components/Shared/Layout";
 import Table from "../../components/Shared/Table";
 import Button from "../../components/Shared/Button";
@@ -108,7 +108,7 @@ export default function ClientsPage() {
 				rows={filteredClients.map(client => [
 					<p dangerouslySetInnerHTML={{ __html: highlightText(client.name, filters.searchText) }} />,
 					client.email,
-					client.age,
+					getAge(client.birth_date),
 					new Date(client.birth_date).toLocaleDateString(),
 					client.phone,
 					client.address,
