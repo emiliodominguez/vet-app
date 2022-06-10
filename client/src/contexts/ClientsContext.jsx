@@ -11,7 +11,7 @@ export function ClientsContextProvider(props) {
 		const data = await clientsService.getClients().catch(() => {
 			throw new Error("There's been an error fetching clients");
 		});
-		if (data) setClients(data);
+		if (data) setClients(data.filter(x => !!x.is_active));
 	}, []);
 
 	async function getClient(id) {
