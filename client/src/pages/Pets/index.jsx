@@ -90,6 +90,10 @@ export default function PetsPage() {
 	}
 
 	useEffect(() => {
+		setFilteredPets(pets);
+	}, [pets]);
+
+	useEffect(() => {
 		if (filters.owner) {
 			getPetsByOwner(filters.owner).then(data => {
 				const filtered = pets.reduce((acc, pet) => {

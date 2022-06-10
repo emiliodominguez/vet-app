@@ -15,7 +15,7 @@ export default function ClientsPage() {
 	const { filters, search, clearFilters: clearFiltersCtx } = useFilters();
 	const { modalProps, openModal, closeModal } = useModal();
 	const { confirmationModalProps, openConfirmationModal, closeConfirmationModal } = useConfirmationModal();
-	const [filteredClients, setFilteredClients] = useState(clients);
+	const [filteredClients, setFilteredClients] = useState([]);
 	const [editableClient, setEditableClient] = useState(null);
 	const [formError, setFormError] = useState(null);
 
@@ -68,6 +68,10 @@ export default function ClientsPage() {
 			setFormError(error.message);
 		}
 	}
+
+	useEffect(() => {
+		setFilteredClients(clients);
+	}, [clients]);
 
 	useEffect(() => {
 		setFilteredClients(searchByName(clients, filters.searchText));
@@ -156,7 +160,7 @@ export default function ClientsPage() {
 											name={field.key}
 											type={field.inputType}
 											placeholder={field.placeholder}
-											value={editableClient?.[field.key]}
+											value={editableClient?.[field.key] ?? ""}
 											onChange={e => {
 												setEditableClient(prev => ({ ...prev, [field.key]: e.target.value }));
 												setFormError(null);
